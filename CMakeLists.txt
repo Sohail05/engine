@@ -55,6 +55,9 @@ file(GLOB SOURCE_FILES ${SOURCES_DIR}/[a-z,A-Z]*.[c,h]*)
 
 source_group(Sources FILES ${SOURCE_FILES})
 
+set(GAME_INCLUDE_DIRS "${SFML_INCLUDE_DIR};")
+include_directories (${GAME_INCLUDE_DIRS})
+
 add_definitions(-D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -DSFE_EXPORTS)
 
 add_executable(${GAME} ${SOURCE_FILES})
