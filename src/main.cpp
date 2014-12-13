@@ -1,17 +1,16 @@
 #include <SFML/Graphics.hpp>
 
-/**
-* the program entry point
-* @param argc the argument count
-* @param argv the array containing the arguments
-*/
-
 using namespace sf;
 
 #define WIDTH 800
 #define HEIGHT 600
 #define TITLE "TITLE"
 
+/**
+* the program entry point
+* @param argc the argument count
+* @param argv the array containing the arguments
+*/
 int main(int argc, char** argv) {
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE);
 
