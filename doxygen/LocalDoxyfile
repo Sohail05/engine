@@ -25,19 +25,19 @@ DOXYFILE_ENCODING      = UTF-8
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = sfeMovie
+PROJECT_NAME           = game
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. 
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = 1.0
+PROJECT_NUMBER         = 0.1
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description 
 # for a project that appears at the top of each page and should give viewer 
 # a quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "sfeMovie is a small C++ library that lets you play movies in SFML based applications. It relies on SFML for the rendering process and FFmpeg for the decoding process. This project has been written to work closely with SFML and tries to keep the same easy-to-use paradigm, while remaining coherent with SFML's naming conventions."
+PROJECT_BRIEF          = "A game engine"
 
 # With the PROJECT_LOGO tag one can specify an logo or icon that is 
 # included in the documentation. The maximum height of the logo should not 
@@ -597,7 +597,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT                  = "@DOXYGEN_INPUT_DIR@/include/sfeMovie"
+INPUT                  = "@DOXYGEN_INPUT_DIR@/src/"
 
 # This tag can be used to specify the character encoding of the source files 
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is 
@@ -652,7 +652,7 @@ FILE_PATTERNS          = *.c \
 # should be searched for input files as well. Possible values are YES and NO. 
 # If left blank NO is used.
 
-RECURSIVE              = NO
+RECURSIVE              = YES
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
 # excluded from the INPUT source files. This way you can easily exclude a 
@@ -851,13 +851,13 @@ HTML_FILE_EXTENSION    = .html
 # have to redo this when upgrading to a newer version of doxygen or when
 # changing the value of configuration settings such as GENERATE_TREEVIEW!
 
-HTML_HEADER            = "@DOXYGEN_INPUT_DIR@/doxygen/header.html"
+HTML_HEADER            = 
 
 # The HTML_FOOTER tag can be used to specify a personal HTML footer for 
 # each generated HTML page. If it is left blank doxygen will generate a 
 # standard footer.
 
-HTML_FOOTER            = "@DOXYGEN_INPUT_DIR@/doxygen/footer.html"
+HTML_FOOTER            = 
 
 # The HTML_STYLESHEET tag can be used to specify a user-defined cascading 
 # style sheet that is used by each HTML page. It can be used to 
@@ -866,7 +866,7 @@ HTML_FOOTER            = "@DOXYGEN_INPUT_DIR@/doxygen/footer.html"
 # the style sheet file to the HTML output directory, so don't put your own 
 # stylesheet in the HTML output directory as well, or it will be erased!
 
-HTML_STYLESHEET        = "@DOXYGEN_INPUT_DIR@/doxygen/doxygen.css"
+HTML_STYLESHEET        = 
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or 
 # other source files which should be copied to the HTML output directory. Note 
@@ -875,7 +875,7 @@ HTML_STYLESHEET        = "@DOXYGEN_INPUT_DIR@/doxygen/doxygen.css"
 # files. In the HTML_STYLESHEET file, use the file name only. Also note that 
 # the files will be copied as-is; there are no commands or markers available.
 
-HTML_EXTRA_FILES       = "@DOXYGEN_INPUT_DIR@/doxygen/footer_helper.css" "@DOXYGEN_INPUT_DIR@/doxygen/main.css" "@DOXYGEN_INPUT_DIR@/doxygen/main_additions.css"
+HTML_EXTRA_FILES       = 
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output. 
 # Doxygen will adjust the colors in the stylesheet and background images 
