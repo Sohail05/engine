@@ -51,7 +51,7 @@ message(STATUS "Additional dependencies: ${SFML_DEPENDENCIES}")
 # ================================================ GAME SETUP ================================================= #
 #################################################################################################################
 
-file(GLOB SOURCE_FILES ${SOURCES_DIR}/[a-z,A-Z]*.[c,h]*)
+file(GLOB_RECURSE SOURCE_FILES ${SOURCES_DIR}/[a-z,A-Z]*.[c,h]*)
 
 source_group(Sources FILES ${SOURCE_FILES})
 
