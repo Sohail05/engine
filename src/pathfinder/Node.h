@@ -2,14 +2,12 @@
 
 #include <memory>
 
-using namespace std;
-
 class Node {
 public:
-	Node(int x, int y, shared_ptr<Node> prev = nullptr, shared_ptr<Node> end = nullptr);
+	Node(int32_t x, int32_t y, std::shared_ptr<Node> prev = nullptr, std::shared_ptr<Node> end = nullptr);
 	~Node();
 
-	shared_ptr<Node> prev;
+	std::shared_ptr<Node> prev;
 
 	/**
 	* @param node the other node
@@ -20,12 +18,12 @@ public:
 	/**
 	* @returns the X position of the node on the grid
 	*/
-	int getX();
+	int32_t getX();
 
 	/**
 	* @returns the Y position of the node on the grid
 	*/
-	int getY();
+	int32_t getY();
 
 	/**
 	* @returns the F position of the node
@@ -42,7 +40,7 @@ public:
 	*/
 	float getHScore();
 private:
-	int x, y;
+	int32_t x, y;
 	float f, g, h;
 };
 

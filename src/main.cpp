@@ -19,7 +19,7 @@ using namespace sf;
 int main(int argc, char** argv) {
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE);
 
-	int map[5][6] = {
+	int32_t map[5][6] = {
 		{ 1, 3, 3, 0, 3, 2 },
 		{ 0, 3, 0, 3, 0, 0 },
 		{ 0, 3, 0, 3, 0, 0 },
@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
 	};
 
 	mapdata mapdata;
-	mapdata.map = (int**)map;
+	mapdata.map = (int32_t**)map;
 	mapdata.width = 6;
 	mapdata.height = 5;
 

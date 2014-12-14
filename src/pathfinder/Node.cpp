@@ -2,7 +2,9 @@
 
 #include <math.h>
 
-Node::Node(int x, int y, shared_ptr<Node> prev, shared_ptr<Node> end) : x(x), y(y), f(0), g(0), h(0), prev(prev) {
+using namespace std;
+
+Node::Node(int32_t x, int32_t y, shared_ptr<Node> prev, shared_ptr<Node> end) : x(x), y(y), f(0), g(0), h(0), prev(prev) {
 	if (prev && end) {
 		float dx = x - end->x;
 		float dy = y - end->y;
@@ -24,11 +26,11 @@ bool Node::isDiagonal(Node* node) {
 	return fabsf(x - node->x) == 1 && fabsf(y - node->y) == 1;
 }
 
-int Node::getX() {
+int32_t Node::getX() {
 	return x;
 }
 
-int Node::getY() {
+int32_t Node::getY() {
 	return y;
 }
 

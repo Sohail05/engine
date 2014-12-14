@@ -5,36 +5,34 @@
 #include <vector>
 #include <memory>
 
-using namespace std;
-
 struct mapdata {
 
 	/**
 	* the map
 	*/
-	int** map;
+	int32_t** map;
 
 	/**
 	* the width of the map -> map[height][width]
 	*/
-	size_t width;
+	uint32_t width;
 
 	/**
 	* the height of the map -> map[height][width]
 	*/
-	size_t height;
+	uint32_t height;
 };
 
 class searchdata {
 public:
-	searchdata(vector<shared_ptr<Node>>* path = nullptr);
+	searchdata(std::vector<std::shared_ptr<Node>>* path = nullptr);
 	~searchdata();
 
 	/**
 	* @returns whether a path was found
 	*/
 	bool isPathFound();
-	vector<shared_ptr<Node>>* getPath();
+	std::vector<std::shared_ptr<Node>>* getPath();
 
 	/**
 	* releases the object
@@ -42,15 +40,15 @@ public:
 	void release();
 private:
 
-	vector<shared_ptr<Node>>* path;
+	std::vector<std::shared_ptr<Node>>* path;
 };
 
 class PathFinder {
 public:
-	static const int NORMAL = 0;
-	static const int START = 1;
-	static const int END = 2;
-	static const int WALL = 3;
+	static const int32_t NORMAL = 0;
+	static const int32_t START = 1;
+	static const int32_t END = 2;
+	static const int32_t WALL = 3;
 
 	/**
 	* @param map the grid
@@ -60,10 +58,10 @@ public:
 	static searchdata* search(mapdata& map, bool diagonally = true);
 	static void release(searchdata* data);
 private:
-	static const int UNCHECKED = 0;
-	static const int CHECKED = 1;
+	static const int32_t UNCHECKED = 0;
+	static const int32_t CHECKED = 1;
 
-	static void addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vector<shared_ptr<Node>>& list, shared_ptr<Node>& parent, shared_ptr<Node>& end);
-	static void addToList(mapdata& map, mapdata& checkmap, vector<shared_ptr<Node>>& list, shared_ptr<Node>& node);
+	static void addNbors(mapdata& map, mapdata& checkmap, bool diagonally, std::vector<std::shared_ptr<Node>>& list, std::shared_ptr<Node>& parent, std::shared_ptr<Node>& end);
+	static void addToList(mapdata& map, mapdata& checkmap, std::vector<std::shared_ptr<Node>>& list, std::shared_ptr<Node>& node);
 };
 

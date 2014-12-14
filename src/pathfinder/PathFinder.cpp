@@ -2,8 +2,10 @@
 
 #include <algorithm>
 
+using namespace std;
+
 #define DELETE_MAPDATA(mapdata) \
-	for (int i = 0; i < mapdata.height; i++) { \
+	for (int32_t i = 0; i < mapdata.height; i++) { \
 		delete[] mapdata.map[i]; \
 	} \
 	delete[] mapdata.map;
@@ -34,9 +36,9 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 	shared_ptr<Node> start = nullptr;
 	shared_ptr<Node> end = nullptr;
 
-	for (int iy = 0; iy < map.height; iy++) {
-		for (int ix = 0; ix < map.width; ix++) {
-			switch ((int)*(map.map + iy * map.width + ix)) {
+	for (int32_t iy = 0; iy < map.height; iy++) {
+		for (int32_t ix = 0; ix < map.width; ix++) {
+			switch ((int32_t)*(map.map + iy * map.width + ix)) {
 				case START:
 					if (start) {
 						RETURN_NO_PATH;
@@ -59,12 +61,12 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 
 	vector<shared_ptr<Node>> openList;
 	vector<shared_ptr<Node>> closeList;
-	int** checkmapArray = new int*[map.height];
-	for (int i = 0; i < map.height; i++) {
-		checkmapArray[i] = new int[map.width];
+	int32_t** checkmapArray = new int32_t*[map.height];
+	for (int32_t i = 0; i < map.height; i++) {
+		checkmapArray[i] = new int32_t[map.width];
 	}
-	for (int iy = 0; iy < map.height; iy++) {
-		for (int ix = 0; ix < map.width; ix++) {
+	for (int32_t iy = 0; iy < map.height; iy++) {
+		for (int32_t ix = 0; ix < map.width; ix++) {
 			checkmapArray[iy][ix] = UNCHECKED;
 		}
 	}
@@ -113,8 +115,8 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 }
 
 void PathFinder::addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vector<shared_ptr<Node>>& list, shared_ptr<Node>& parent, shared_ptr<Node>& end) {
-	int x = parent->getX();
-	int y = parent->getY();
+	int32_t x = parent->getX();
+	int32_t y = parent->getY();
 
 	if (x > 0) {
 		shared_ptr<Node> node(new Node(x - 1, y, parent, end));
@@ -154,9 +156,9 @@ void PathFinder::addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vect
 }
 
 void PathFinder::addToList(mapdata& map, mapdata& checkmap, vector<shared_ptr<Node>>& list, shared_ptr<Node>& node) {
-	int x = node->getX();
-	int y = node->getY();
-	int tile = (int)*(map.map + y * map.width + x);
+	int32_t x = node->getX();
+	int32_t y = node->getY();
+	int32_t tile = (int32_t)*(map.map + y * map.width + x);
 	if (tile != WALL && tile != START) {
 		if (checkmap.map[y][x] != CHECKED) {
 			checkmap.map[y][x] = CHECKED;
