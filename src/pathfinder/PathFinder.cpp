@@ -2,49 +2,70 @@
 
 #include <algorithm>
 
+#define DELETE_ARRAY_PTR(ptr_array) \
+	for (int i = 0; i < checkmap.height; i++) { \
+		delete[] checkmapArray[i]; \
+	} \
+	delete[] checkmapArray;
+
+#define RETURN_NO_PATH return new searchdata
+
+searchdata::searchdata(vector<shared_ptr<Node>>* path) : path(path) {
+	
+}
+
+searchdata::~searchdata() {
+	delete path;
+}
+
+bool searchdata::isPathFound() {
+	return path != nullptr;
+}
+
+vector<shared_ptr<Node>>* searchdata::getPath() { 
+	return path;
+}
+
+void searchdata::release() {
+	delete this; 
+}
+
 searchdata* PathFinder::search(mapdata& map, bool diagonally) {
-	Node* start = nullptr;
-	Node* end = nullptr;
+	shared_ptr<Node> start = nullptr;
+	shared_ptr<Node> end = nullptr;
 
 	for (int iy = 0; iy < map.height; iy++) {
 		for (int ix = 0; ix < map.width; ix++) {
 			switch ((int)*(map.map + iy * map.width + ix)) {
 				case START:
 					if (start) {
-						delete start;
-						if (end) delete end;
-						return nullptr;
+						RETURN_NO_PATH;
 					}
-					start = new Node(ix, iy);
+					start = make_shared<Node>(ix, iy);
 					break;
 				case END:
 					if (end) {
-						delete end;
-						if (start) delete start;
-						return nullptr;
+						RETURN_NO_PATH;
 					}
-					end = new Node(ix, iy);
+					end = make_shared<Node>(ix, iy);
 					break;
 			}
 		}
 	}
 
-	if (!start) {
-		if (end) delete end;
-		return nullptr;
-	}
-	if (!end) {
-		if (start) delete start;
-		return nullptr;
+	if (!start || !start) {
+		RETURN_NO_PATH;
 	}
 
-	vector<Node*>* openList = new vector<Node*>;
-	vector<Node*>* closeList = new vector<Node*>;
+	vector<shared_ptr<Node>> openList;
+	vector<shared_ptr<Node>> closeList;
 	int** checkmapArray = new int*[map.height];
 	for (int i = 0; i < map.height; i++) {
 		checkmapArray[i] = new int[map.width];
-		for (int j = 0; j < map.width; j++) {
-			checkmapArray[i][j] = UNCHECKED;
+	}
+	for (int iy = 0; iy < map.height; iy++) {
+		for (int ix = 0; ix < map.width; ix++) {
+			checkmapArray[iy][ix] = UNCHECKED;
 		}
 	}
 
@@ -53,26 +74,30 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 	checkmap.width = map.width;
 	checkmap.height = map.height;
 
-	Node* parent = new Node(start->x, start->y);
+	shared_ptr<Node> parent(new Node(start->getX(), start->getY()));
 
-	while (parent->x != end->x || parent->y != end->y) {
-		Node* step = nullptr;
+	while (parent->getX() != end->getX() || parent->getY() != end->getY()) {
+		shared_ptr<Node> step = nullptr;
 		addNbors(map, checkmap, diagonally, openList, parent, end);
-		if (openList->size() == 0) return nullptr;
-		for (Node* node : *openList) {
-			if (!step || node->f < step->f) {
+		if (openList.size() == 0) {
+			DELETE_ARRAY_PTR(checkmapArray);
+			RETURN_NO_PATH;
+		}
+
+		for (auto node : openList) {
+			if (!step || node->getFScore() < step->getFScore()) {
 				step = node;
 			}
 		}
 
-		closeList->push_back(step);
-		openList->erase(remove(openList->begin(), openList->end(), step), openList->end());
+		closeList.push_back(step);
+		openList.erase(remove(openList.begin(), openList.end(), step), openList.end());
 		parent = step;
 	}
 
-	vector<Node*>* path = new vector<Node*>;
+	vector<shared_ptr<Node>>* path = new vector<shared_ptr<Node>>;
 
-	Node* n = closeList->back();
+	auto n = closeList.back();
 	path->push_back(n);
 	while (n->prev) {
 		n = n->prev;
@@ -82,89 +107,64 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 	path->pop_back();
 	reverse(path->begin(), path->end());
 
-	searchdata* sdata = new searchdata;
-	sdata->path = path;
-	sdata->openList = openList;
-	sdata->closeList = closeList;
+	DELETE_ARRAY_PTR(checkmapArray);
 
-	delete start;
-
-	//for (int i = 0; i < checkmap.height; i++) {
-	//	delete[] checkmapArray[i];
-	//}
-	//delete[] checkmapArray;
-
-	return sdata;
+	return new searchdata(path);
 }
 
-void PathFinder::addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vector<Node*>* list, Node* parent, Node* end) {
-	if (parent->x > 0) {
-		Node* node = new Node(parent->x - 1, parent->y, parent, end);
+void PathFinder::addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vector<shared_ptr<Node>>& list, shared_ptr<Node>& parent, shared_ptr<Node>& end) {
+	int x = parent->getX();
+	int y = parent->getY();
+
+	if (x > 0) {
+		shared_ptr<Node> node(new Node(x - 1, y, parent, end));
 		addToList(map, checkmap, list, node);
 	}
-	if (parent->y > 0) {
-		Node* node = new Node(parent->x, parent->y - 1, parent, end);
+	if (y > 0) {
+		shared_ptr<Node> node(new Node(x, y - 1, parent, end));
 		addToList(map, checkmap, list, node);
 	}
-	if (parent->x < map.width - 1) {
-		Node* node = new Node(parent->x + 1, parent->y, parent, end);
+	if (x < map.width - 1) {
+		shared_ptr<Node> node(new Node(x + 1, y, parent, end));
 		addToList(map, checkmap, list, node);
 	}
-	if (parent->y < map.height - 1) {
-		Node* node = new Node(parent->x, parent->y + 1, parent, end);
+	if (y < map.height - 1) {
+		shared_ptr<Node> node(new Node(x, y + 1, parent, end));
 		addToList(map, checkmap, list, node);
 	}
 
 	if (diagonally) {
-		if (parent->x > 0 && parent->y > 0) {
-			Node* node = new Node(parent->x - 1, parent->y - 1, parent, end);
+		if (x > 0 && y > 0) {
+			shared_ptr<Node> node(new Node(x - 1, y - 1, parent, end));
 			addToList(map, checkmap, list, node);
 		}
-		if (parent->x < map.width - 1 && parent->y < map.height - 1) {
-			Node* node = new Node(parent->x + 1, parent->y + 1, parent, end);
+		if (x < map.width - 1 && y < map.height - 1) {
+			shared_ptr<Node> node(new Node(x + 1, y + 1, parent, end));
 			addToList(map, checkmap, list, node);
 		}
-		if (parent->x > 0 && parent->y < map.height - 1) {
-			Node* node = new Node(parent->x - 1, parent->y + 1, parent, end);
+		if (x > 0 && y < map.height - 1) {
+			shared_ptr<Node> node(new Node(x - 1, y + 1, parent, end));
 			addToList(map, checkmap, list, node);
 		}
-		if (parent->x < map.width - 1 && parent->y > 0) {
-			Node* node = new Node(parent->x + 1, parent->y - 1, parent, end);
+		if (x < map.width - 1 && y > 0) {
+			shared_ptr<Node> node(new Node(x + 1, y - 1, parent, end));
 			addToList(map, checkmap, list, node);
 		}
 	}
 }
 
-void PathFinder::addToList(mapdata& map, mapdata& checkmap, vector<Node*>* list, Node* node) {
-	int tile = (int)*(map.map + node->y * map.width + node->x);
+void PathFinder::addToList(mapdata& map, mapdata& checkmap, vector<shared_ptr<Node>>& list, shared_ptr<Node>& node) {
+	int x = node->getX();
+	int y = node->getY();
+	int tile = (int)*(map.map + y * map.width + x);
 	if (tile != WALL && tile != START) {
-		int** tileptr = checkmap.map + node->y * checkmap.width + node->x;
-		if ((int)*tileptr != CHECKED) {
-			*tileptr = (int*)CHECKED;
-			list->push_back(node);
+		if (checkmap.map[y][x] != CHECKED) {
+			checkmap.map[y][x] = CHECKED;
+			list.push_back(node);
 		}
 	}
 }
 
 void PathFinder::release(searchdata* sdata) {
-	if (sdata->path) {
-		for (Node* node : *sdata->path) {
-			delete node;
-		}
-		delete sdata->path;
-	}
-	if (sdata->openList) {
-		for (Node* node : *sdata->openList) {
-			delete node;
-		}
-		delete sdata->openList;
-	}
-	//if (sdata->closeList) {
-	//	for (Node* node : *sdata->closeList) {
-	//		delete node;
-	//	}
-	//	delete sdata->closeList;
-	//}
-	delete sdata->closeList;
-	delete sdata;
+	sdata->release();
 }
