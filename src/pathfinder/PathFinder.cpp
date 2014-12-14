@@ -2,11 +2,11 @@
 
 #include <algorithm>
 
-#define DELETE_ARRAY_PTR(ptr_array) \
-	for (int i = 0; i < checkmap.height; i++) { \
-		delete[] checkmapArray[i]; \
+#define DELETE_MAPDATA(mapdata) \
+	for (int i = 0; i < mapdata.height; i++) { \
+		delete[] mapdata.map[i]; \
 	} \
-	delete[] checkmapArray;
+	delete[] mapdata.map;
 
 #define RETURN_NO_PATH return new searchdata
 
@@ -80,7 +80,7 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 		shared_ptr<Node> step = nullptr;
 		addNbors(map, checkmap, diagonally, openList, parent, end);
 		if (openList.size() == 0) {
-			DELETE_ARRAY_PTR(checkmapArray);
+			DELETE_MAPDATA(checkmap);
 			RETURN_NO_PATH;
 		}
 
@@ -107,7 +107,7 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 	path->pop_back();
 	reverse(path->begin(), path->end());
 
-	DELETE_ARRAY_PTR(checkmapArray);
+	DELETE_MAPDATA(checkmap);
 
 	return new searchdata(path);
 }

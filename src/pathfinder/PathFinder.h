@@ -55,7 +55,7 @@ public:
 	/**
 	* @param map the grid
 	* @param diagonally whether the resulting path can go from tile to tile diagonally
-	* @returns the shortest path
+	* @returns the shortest path or nullptr if no path was found or two start locations or two end locations were found
 	*/
 	static searchdata* search(mapdata& map, bool diagonally = true);
 	static void release(searchdata* data);
