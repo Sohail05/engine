@@ -39,6 +39,7 @@ int main(int argc, char** argv) {
 			printf("%i %i\n", node->getX(), node->getY());
 		}
 	}
+	searchdata->release(); // or delete searchdata; // or PathFinder::release(searchdata);
 
 	while (window.isOpen()) {
 		Event event;
