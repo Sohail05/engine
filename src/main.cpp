@@ -2,11 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
-<<<<<<< HEAD
 #include "pathfinder\PathFinder.h"
 
-=======
->>>>>>> origin/master
 using namespace sf;
 
 #define WIDTH 800
@@ -18,10 +15,7 @@ using namespace sf;
 * @param argc the argument count
 * @param argv the array containing the arguments
 */
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 int main(int argc, char** argv) {
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE);
 
