@@ -10,6 +10,8 @@ using namespace sf;
 #define HEIGHT 600
 #define TITLE "TITLE"
 
+#include "cEngine.h"
+
 /**
 * the program entry point
 * @param argc the argument count
@@ -17,8 +19,13 @@ using namespace sf;
 */
 
 int main(int argc, char** argv) {
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), TITLE);
 
+	cEngine *Engine = new cEngine( TITLE, WIDTH, HEIGHT, 0, 0 );
+
+	RenderWindow window(VideoMode( Engine->GetWindowWidth(), Engine->GetWindowHeight() ), Engine->GetWindowTitle());
+	window.setPosition( sf::Vector2i( Engine->GetWindowPositionX(), Engine->GetWindowPositionY() ) );
+
+	/*
 	int32_t map[5][6] = {
 		{ 1, 3, 3, 0, 3, 2 },
 		{ 0, 3, 0, 3, 0, 0 },
@@ -40,6 +47,9 @@ int main(int argc, char** argv) {
 		}
 	}
 	searchdata->release(); // or delete searchdata; // or PathFinder::release(searchdata);
+	*/
+
+	Engine->Initialize();
 
 	while (window.isOpen()) {
 		Event event;
@@ -50,6 +60,9 @@ int main(int argc, char** argv) {
 		}
 
 		window.clear(Color::Red);
+
+		Engine->Render( &window );
+
 		//window.draw();
 		window.display();
 	}
