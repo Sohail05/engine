@@ -1,6 +1,6 @@
-#include "cMenuState.h"
+#include "MenuState.h"
 
-void cMenuState::Render( sf::RenderWindow *_window ) {
+void MenuState::Render( sf::RenderWindow *_window ) {
 		
 	sf::CircleShape CS( 20.f, 60 );
 	CS.setFillColor( sf::Color::Green );
@@ -15,12 +15,12 @@ void cMenuState::Render( sf::RenderWindow *_window ) {
 	}
 }
 
-cMenuState::cMenuState( int _ScreenWidth, int _ScreenHeight ) :
-	cState( _ScreenWidth, _ScreenHeight )
+MenuState::MenuState( int _ScreenWidth, int _ScreenHeight ) :
+	State( _ScreenWidth, _ScreenHeight )
 {
 }
 
 
-cMenuState::~cMenuState(void)
+MenuState::~MenuState(void)
 {
 }

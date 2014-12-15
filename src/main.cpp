@@ -10,7 +10,7 @@ using namespace sf;
 #define HEIGHT 600
 #define TITLE "TITLE"
 
-#include "cEngine.h"
+#include "Engine.h"
 
 /**
 * the program entry point
@@ -20,10 +20,10 @@ using namespace sf;
 
 int main(int argc, char** argv) {
 
-	cEngine *Engine = new cEngine( TITLE, WIDTH, HEIGHT, 0, 0 );
+	Engine *m_Engine = new Engine( TITLE, WIDTH, HEIGHT, 0, 0 );
 
-	RenderWindow window(VideoMode( Engine->GetWindowWidth(), Engine->GetWindowHeight() ), Engine->GetWindowTitle());
-	window.setPosition( sf::Vector2i( Engine->GetWindowPositionX(), Engine->GetWindowPositionY() ) );
+	RenderWindow window(VideoMode( m_Engine->GetWindowWidth(), m_Engine->GetWindowHeight() ), m_Engine->GetWindowTitle());
+	window.setPosition( sf::Vector2i( m_Engine->GetWindowPositionX(), m_Engine->GetWindowPositionY() ) );
 
 	/*
 	int32_t map[5][6] = {
@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
 	searchdata->release(); // or delete searchdata; // or PathFinder::release(searchdata);
 	*/
 
-	Engine->Initialize();
+	m_Engine->Initialize();
 
 	while (window.isOpen()) {
 		Event event;
@@ -61,7 +61,8 @@ int main(int argc, char** argv) {
 
 		window.clear(Color::Red);
 
-		Engine->Render( &window );
+		m_Engine->Update();
+		m_Engine->Render( &window );
 
 		//window.draw();
 		window.display();

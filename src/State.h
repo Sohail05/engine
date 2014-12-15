@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class cState
+class State
 {
 
 public:
@@ -10,8 +10,8 @@ public:
 	virtual void Update() = 0;
 	virtual void Render( sf::RenderWindow* _window ) = 0;
 
-	cState( int _ScreenWidth, int _ScreenHeight );
-	~cState(void);
+	State( int _ScreenWidth, int _ScreenHeight );
+	virtual ~State(void);
 
 protected:
 
