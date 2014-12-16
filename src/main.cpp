@@ -12,6 +12,10 @@ using namespace sf;
 
 #include "Engine.h"
 
+#ifdef _DEBUG
+#include <vld.h>
+#endif
+
 /**
 * the program entry point
 * @param argc the argument count
@@ -77,6 +81,8 @@ int main(int argc, char** argv) {
 		//window.draw();
 		window.display();
 	}
+	
+	m_Engine->Release();
 
     return EXIT_SUCCESS;
 }

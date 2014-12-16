@@ -47,6 +47,13 @@ void Engine::Render( sf::RenderWindow* _Window )
 	m_CurrentState->Render( _Window );
 }
 
+void Engine::Release() {
+	delete m_StateManager;
+	delete m_GameState;
+	delete m_MenuState;
+	delete this;
+}
+
 Engine::Engine( std::string _Title, int _WindowWidth, int _WindowHeight, int _WindowPositionX, int _WindowPositionY ) :
 	m_Title( _Title ), 
 	m_WindowWidth(_WindowWidth),         m_WindowHeight(_WindowHeight), 
