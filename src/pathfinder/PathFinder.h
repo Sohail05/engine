@@ -39,7 +39,6 @@ public:
 	*/
 	void release();
 private:
-
 	std::vector<std::shared_ptr<Node>>* path;
 };
 
@@ -61,7 +60,7 @@ private:
 	static const int32_t UNCHECKED = 0;
 	static const int32_t CHECKED = 1;
 
-	static void addNbors(mapdata& map, mapdata& checkmap, bool diagonally, std::vector<std::shared_ptr<Node>>& list, std::shared_ptr<Node>& parent, std::shared_ptr<Node>& end);
-	static void addToList(mapdata& map, mapdata& checkmap, std::vector<std::shared_ptr<Node>>& list, std::shared_ptr<Node>& node);
+	static std::vector<std::shared_ptr<Node>>* addNbors(mapdata& map, mapdata& checkmap, bool diagonally, std::vector<std::shared_ptr<Node>>& list, std::shared_ptr<Node>& parent, std::shared_ptr<Node>& end);
+	static std::shared_ptr<Node> addToList(mapdata& map, mapdata& checkmap, std::vector<std::shared_ptr<Node>>& list, std::shared_ptr<Node>& node);
 };
 

@@ -34,6 +34,16 @@ int main(int argc, char** argv) {
 		{ 0, 0, 0, 0, 0, 0 }
 	};
 
+	// in this case without the sqrt function it didnt find the shortest path (2 2; 3 3; 2 4; 1 4)
+	//int32_t map[5][6] = {
+	//	{ 0, 0, 0, 0, 0, 0 },
+	//	{ 0, 0, 0, 1, 0, 0 },
+	//	{ 0, 0, 0, 0, 0, 0 },
+	//	{ 3, 3, 3, 0, 0, 0 },
+	//	{ 0, 2, 0, 0, 0, 0 },
+	//};
+
+
 	mapdata mapdata;
 	mapdata.map = (int32_t**)map;
 	mapdata.width = 6;
