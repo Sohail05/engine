@@ -38,7 +38,7 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 
 	for (int32_t iy = 0; iy < map.height; iy++) {
 		for (int32_t ix = 0; ix < map.width; ix++) {
-			switch ((int32_t)*(map.map + iy * map.width + ix)) {
+			switch (*(int32_t*)*(map.map + iy * map.width + ix)) {
 				case START:
 					if (start) {
 						RETURN_NO_PATH;
@@ -158,7 +158,7 @@ void PathFinder::addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vect
 void PathFinder::addToList(mapdata& map, mapdata& checkmap, vector<shared_ptr<Node>>& list, shared_ptr<Node>& node) {
 	int32_t x = node->getX();
 	int32_t y = node->getY();
-	int32_t tile = (int32_t)*(map.map + y * map.width + x);
+	int32_t tile = *(int32_t*)*(map.map + y * map.width + x);
 	if (tile != WALL && tile != START) {
 		if (checkmap.map[y][x] != CHECKED) {
 			checkmap.map[y][x] = CHECKED;
