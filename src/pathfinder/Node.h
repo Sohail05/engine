@@ -3,6 +3,9 @@
 #include <memory>
 #include <stdint.h>
 
+#define MOVEMENTCOST_STRAIGHT 10
+#define MOVEMENTCOST_DIAGONAL 14
+
 class Node {
 public:
 	Node(int32_t x, int32_t y, std::shared_ptr<Node> prev = nullptr, std::shared_ptr<Node> end = nullptr);
@@ -44,17 +47,17 @@ public:
 	/**
 	* @returns the F position of the node
 	*/
-	float getFScore();
+	int32_t getFScore();
 
 	/**
 	* @returns the G position of the node
 	*/
-	float getGScore();
+	int32_t getGScore();
 
 	/**
 	* @returns the H position of the node
 	*/
-	float getHScore();
+	int32_t getHScore();
 	
 	/**
 	* set the previous node
@@ -67,7 +70,7 @@ public:
 	std::shared_ptr<Node>& getPrevious();
 private:
 	int32_t x, y;
-	float f, g, h;
+	int32_t f, g, h;
 	std::shared_ptr<Node> prev;
 };
 

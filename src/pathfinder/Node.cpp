@@ -32,9 +32,9 @@ void Node::calculateFScore(bool recalalcG) {
 
 void Node::calculateGScore() {
 	if (isDiagonal(prev.get())) {
-		g = prev->g + 14;
+		g = prev->g + MOVEMENTCOST_DIAGONAL;
 	} else {
-		g = prev->g + 10;
+		g = prev->g + MOVEMENTCOST_STRAIGHT;
 	}
 }
 
@@ -46,15 +46,15 @@ int32_t Node::getY() {
 	return y;
 }
 
-float Node::getFScore() {
+int32_t Node::getFScore() {
 	return f;
 }
 
-float Node::getGScore() {
+int32_t Node::getGScore() {
 	return g;
 }
 
-float Node::getHScore() {
+int32_t Node::getHScore() {
 	return h;
 }
 

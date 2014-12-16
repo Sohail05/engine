@@ -93,11 +93,11 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 		}
 		
 		for (auto node : *containedNodes) {
-			float g = step->getGScore();
+			int32_t g = step->getGScore();
 			if (node->isDiagonal(step.get())) {
-				g += 14;
+				g += MOVEMENTCOST_DIAGONAL;
 			} else {
-				g += 10;
+				g += MOVEMENTCOST_STRAIGHT;
 			}
 			if (node->getGScore() < g) {
 				step = node;
