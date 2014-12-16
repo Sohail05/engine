@@ -17,11 +17,11 @@ using namespace sf;
 #endif
 
 /**
-* the program entry point
+* The program entry point
 * @param argc the argument count
 * @param argv the array containing the arguments
+* @return the returncode of the program
 */
-
 int main(int argc, char** argv) {
 
 	Engine *m_Engine = new Engine( TITLE, WIDTH, HEIGHT, 0, 0 );
