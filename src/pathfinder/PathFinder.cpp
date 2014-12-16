@@ -38,7 +38,7 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 
 	for (int32_t iy = 0; iy < map.height; iy++) {
 		for (int32_t ix = 0; ix < map.width; ix++) {
-			switch ((int32_t)*(map.map + iy * map.width + ix)) {
+			switch (*(int32_t*)(map.map + iy * map.width + ix)) {
 				case START:
 					if (start) {
 						RETURN_NO_PATH;
