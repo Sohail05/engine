@@ -38,7 +38,7 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 
 	for (int32_t iy = 0; iy < map.height; iy++) {
 		for (int32_t ix = 0; ix < map.width; ix++) {
-			switch (*(int32_t*)*(map.map + iy * map.width + ix)) {
+			switch (*(int32_t*)(map.map + iy * map.width + ix)) {
 				case START:
 					if (start) {
 						RETURN_NO_PATH;
@@ -80,7 +80,7 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 
 	while (parent->getX() != end->getX() || parent->getY() != end->getY()) {
 		shared_ptr<Node> step = nullptr;
-		addNbors(map, checkmap, diagonally, openList, parent, end);
+		auto containedNodes = addNbors(map, checkmap, diagonally, openList, parent, end);
 		if (openList.size() == 0) {
 			DELETE_MAPDATA(checkmap);
 			RETURN_NO_PATH;
@@ -91,6 +91,21 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 				step = node;
 			}
 		}
+		
+		for (auto node : *containedNodes) {
+			int32_t g = step->getGScore();
+			if (node->isDiagonal(step.get())) {
+				g += MOVEMENTCOST_DIAGONAL;
+			} else {
+				g += MOVEMENTCOST_STRAIGHT;
+			}
+			if (node->getGScore() < g) {
+				step = node;
+				step->calculateFScore();
+			}
+		}
+		delete containedNodes;
+
 
 		closeList.push_back(step);
 		openList.erase(remove(openList.begin(), openList.end(), step), openList.end());
@@ -101,8 +116,8 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 
 	auto n = closeList.back();
 	path->push_back(n);
-	while (n->prev) {
-		n = n->prev;
+	while (n->getPrevious()) {
+		n = n->getPrevious();
 		path->push_back(n);
 	}
 
@@ -114,57 +129,92 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 	return new searchdata(path);
 }
 
-void PathFinder::addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vector<shared_ptr<Node>>& list, shared_ptr<Node>& parent, shared_ptr<Node>& end) {
+vector<shared_ptr<Node>>* PathFinder::addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vector<shared_ptr<Node>>& list, shared_ptr<Node>& parent, shared_ptr<Node>& end) {
 	int32_t x = parent->getX();
 	int32_t y = parent->getY();
 
+	auto containedNodes = new vector<shared_ptr<Node>>;
+
 	if (x > 0) {
 		shared_ptr<Node> node(new Node(x - 1, y, parent, end));
-		addToList(map, checkmap, list, node);
+		auto containedNode = addToList(map, checkmap, list, node);
+		if (containedNode) {
+			containedNodes->push_back(containedNode);
+		}
 	}
 	if (y > 0) {
 		shared_ptr<Node> node(new Node(x, y - 1, parent, end));
-		addToList(map, checkmap, list, node);
+		auto containedNode = addToList(map, checkmap, list, node);
+		if (containedNode) {
+			containedNodes->push_back(containedNode);
+		}
 	}
 	if (x < map.width - 1) {
 		shared_ptr<Node> node(new Node(x + 1, y, parent, end));
-		addToList(map, checkmap, list, node);
+		auto containedNode = addToList(map, checkmap, list, node);
+		if (containedNode) {
+			containedNodes->push_back(containedNode);
+		}
 	}
 	if (y < map.height - 1) {
 		shared_ptr<Node> node(new Node(x, y + 1, parent, end));
-		addToList(map, checkmap, list, node);
+		auto containedNode = addToList(map, checkmap, list, node);
+		if (containedNode) {
+			containedNodes->push_back(containedNode);
+		}
 	}
 
 	if (diagonally) {
 		if (x > 0 && y > 0) {
 			shared_ptr<Node> node(new Node(x - 1, y - 1, parent, end));
-			addToList(map, checkmap, list, node);
+			auto containedNode = addToList(map, checkmap, list, node);
+			if (containedNode) {
+				containedNodes->push_back(containedNode);
+			}
 		}
 		if (x < map.width - 1 && y < map.height - 1) {
 			shared_ptr<Node> node(new Node(x + 1, y + 1, parent, end));
-			addToList(map, checkmap, list, node);
+			auto containedNode = addToList(map, checkmap, list, node);
+			if (containedNode) {
+				containedNodes->push_back(containedNode);
+			}
 		}
 		if (x > 0 && y < map.height - 1) {
 			shared_ptr<Node> node(new Node(x - 1, y + 1, parent, end));
-			addToList(map, checkmap, list, node);
+			auto containedNode = addToList(map, checkmap, list, node);
+			if (containedNode) {
+				containedNodes->push_back(containedNode);
+			}
 		}
 		if (x < map.width - 1 && y > 0) {
 			shared_ptr<Node> node(new Node(x + 1, y - 1, parent, end));
-			addToList(map, checkmap, list, node);
+			auto containedNode = addToList(map, checkmap, list, node);
+			if (containedNode) {
+				containedNodes->push_back(containedNode);
+			}
 		}
 	}
+
+	return containedNodes;
 }
 
-void PathFinder::addToList(mapdata& map, mapdata& checkmap, vector<shared_ptr<Node>>& list, shared_ptr<Node>& node) {
+shared_ptr<Node> PathFinder::addToList(mapdata& map, mapdata& checkmap, vector<shared_ptr<Node>>& list, shared_ptr<Node>& node) {
 	int32_t x = node->getX();
 	int32_t y = node->getY();
-	int32_t tile = *(int32_t*)*(map.map + y * map.width + x);
+
+	if (checkmap.map[y][x] == CHECKED) {
+		return node;
+	}
+
+	int32_t tile = *(int32_t*)(map.map + y * map.width + x);
 	if (tile != WALL && tile != START) {
 		if (checkmap.map[y][x] != CHECKED) {
 			checkmap.map[y][x] = CHECKED;
 			list.push_back(node);
 		}
 	}
+
+	return nullptr;
 }
 
 void PathFinder::release(searchdata* sdata) {

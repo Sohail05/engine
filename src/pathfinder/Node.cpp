@@ -6,15 +6,8 @@ using namespace std;
 
 Node::Node(int32_t x, int32_t y, shared_ptr<Node> prev, shared_ptr<Node> end) : x(x), y(y), f(0), g(0), h(0), prev(prev) {
 	if (prev && end) {
-		float dx = x - end->x;
-		float dy = y - end->y;
-		h = sqrtf(dx * dx + dy * dy);
-		if (isDiagonal(prev.get())) {
-			g = prev->g + 14;
-		} else {
-			g = prev->g + 10;
-		}
-		f = g + h;
+		calculateHScore(end.get());
+		calculateFScore();
 	}
 }
 
@@ -30,18 +23,45 @@ int32_t Node::getX() {
 	return x;
 }
 
+void Node::calculateFScore(bool recalalcG) {
+	if (recalalcG) {
+		calculateGScore();
+	}
+	f = g + h;
+}
+
+void Node::calculateGScore() {
+	if (isDiagonal(prev.get())) {
+		g = prev->g + MOVEMENTCOST_DIAGONAL;
+	} else {
+		g = prev->g + MOVEMENTCOST_STRAIGHT;
+	}
+}
+
+void Node::calculateHScore(Node* end) {
+	h = fabsf(x - end->x) + fabsf(y - end->y);
+}
+
 int32_t Node::getY() {
 	return y;
 }
 
-float Node::getFScore() {
+int32_t Node::getFScore() {
 	return f;
 }
 
-float Node::getGScore() {
+int32_t Node::getGScore() {
 	return g;
 }
 
-float Node::getHScore() {
+int32_t Node::getHScore() {
 	return h;
+}
+
+void Node::setPrevious(shared_ptr<Node> previous) {
+	this->prev = previous;
+}
+
+shared_ptr<Node>& Node::getPrevious() {
+	return prev;
 }

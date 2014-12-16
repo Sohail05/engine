@@ -15,6 +15,7 @@ public:
 	void Initialize();
 	void Update();
 	void Render( sf::RenderWindow* Window );
+	void Release();
 
 	inline std::string GetWindowTitle() { return m_Title; }
 	inline int GetWindowWidth() { return m_WindowWidth; }
