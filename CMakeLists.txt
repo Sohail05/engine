@@ -103,6 +103,7 @@ message(STATUS "Angelscript Source: ${Angelscript_SOURCE}")
 add_definitions(-D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -DSFE_EXPORTS)
 
 add_executable(${GAME} ${SOURCE_FILES} ${Angelscript_HEADER} ${Angelscript_SOURCE} )
+add_custom_target(COPY)
 
 # Define the libraries game should link against
 if (BUILD_STATIC)
@@ -115,17 +116,17 @@ endif()
 include (${CMAKE_SOURCE_DIR}/cmake/Install.cmake)
 		
 if (WINDOWS)
-add_custom_command(TARGET ${GAME} 
+add_custom_command(TARGET COPY POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/${SCRIPTS_DIR} $<TARGET_FILE_DIR:${GAME}>/../${SCRIPTS_DIR})
 if (BUILD_STATIC)
 else()		
-add_custom_command(TARGET ${GAME} POST_BUILD
+add_custom_command(TARGET COPY POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${SFML_INCLUDE_DIR}/../bin $<TARGET_FILE_DIR:${GAME}>)
 endif()
 else()
-add_custom_command(TARGET ${GAME} 
+add_custom_command(TARGET COPY POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/${SCRIPTS_DIR} $<TARGET_FILE_DIR:${GAME}>/${SCRIPTS_DIR})
 endif()
