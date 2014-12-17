@@ -12,6 +12,7 @@ set (GAME game)
 set (VERSION_MAJOR 0)
 set (VERSION_MINOR 1)
 
+set (SCRIPTS_DIR "scripts")
 set (SOURCES_DIR "src")
 set (OTHER_LIBRARIES "")
 set (LINKER_FLAGS "")
@@ -112,6 +113,16 @@ else()
 endif()
 
 include (${CMAKE_SOURCE_DIR}/cmake/Install.cmake)
+
+add_custom_command(TARGET ${GAME} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/${SCRIPTS_DIR} $<TARGET_FILE_DIR:${GAME}>/${SCRIPTS_DIR})
+		
+if (WINDOWS)		
+add_custom_command(TARGET ${GAME} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${SFML_INCLUDE_DIR}/../bin $<TARGET_FILE_DIR:${GAME}>)
+endif()
 
 # add an option for building the documentation
 set(BUILD_DOC FALSE CACHE BOOL "Set to true to build the documentation")

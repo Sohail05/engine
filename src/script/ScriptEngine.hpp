@@ -1,5 +1,5 @@
 #pragma once
-#include "angelscript.h"
+#include <angelscript.h>
 #include <scriptbuilder/scriptbuilder.h>
 
 /** @brief A class above angelscript
