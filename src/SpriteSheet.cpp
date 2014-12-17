@@ -44,8 +44,6 @@ void SpriteSheet::put(const std::string& spritesheet, const string& spritesheetd
 		Texture texture;
 		texture.loadFromImage(ssheet, rect);
 
-		printf("%s %i %i %i %i\n", buffer.name, buffer.x, buffer.y, buffer.width, buffer.height);
-
 		textures[buffer.name] = texture;
 	}
 	infile.close();
