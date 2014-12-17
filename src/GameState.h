@@ -11,6 +11,6 @@ public:
 	void Render( sf::RenderWindow *_window );
 
 	GameState( int _ScreenWidth, int _ScreenHeight );
-	~GameState(void);
+	~GameState( void );
 };
 

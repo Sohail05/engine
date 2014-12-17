@@ -24,7 +24,7 @@ public:
 	inline int GetWindowPositionY() { return m_WindowPositionY; }
 
 	Engine( std::string _Title, int _WindowWidth, int _WindowHeight, int _WindowPositionX, int _WindowPositionY );
-	~Engine(void);
+	~Engine( void );
 
 private:
 

@@ -6,11 +6,15 @@ class MenuState : public State
 {
 public:
 
-	void Initialize() {}
-	void Update() {}
+	void Initialize();
+	void Update();
 	void Render( sf::RenderWindow *_window );
 
 	MenuState( int _ScreenWidth, int _ScreenHeight );
-	~MenuState(void);
+	~MenuState( void );
+
+private:
+
+	sf::RectangleShape m_RecShape[4];
 };
 

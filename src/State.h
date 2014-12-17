@@ -11,7 +11,7 @@ public:
 	virtual void Render( sf::RenderWindow* _window ) = 0;
 
 	State( int _ScreenWidth, int _ScreenHeight );
-	virtual ~State(void);
+	virtual ~State( void );
 
 protected:
 

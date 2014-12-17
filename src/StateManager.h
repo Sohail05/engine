@@ -15,8 +15,8 @@ public:
 
 	State *GetState( std::string _Name );
 	
-	StateManager( void );
-	~StateManager(void);
+	StateManager( );
+	~StateManager( void );
 
 private:
 
