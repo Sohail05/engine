@@ -3,7 +3,7 @@
 #include <cassert>
 #include <iostream>
 
-const std::string ScriptEngine::script_dir = "scripts";
+const std::string ScriptEngine::script_dir = "scripts/";
 
 // Print the script string to the standard output stream
 void print(std::string &msg)

@@ -61,8 +61,8 @@ int main(int argc, char** argv) {
 	*/
 
 	ScriptEngine as;
-	as.loadScript("script.as");
-	as.runScript("script.as", "void main()");
+	as.loadScript("test.as");
+	as.runScript("test.as", "void main()");
 
 	m_Engine->Initialize();
 
