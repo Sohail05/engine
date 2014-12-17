@@ -1,5 +1,6 @@
 #pragma once
 #include "angelscript.h"
+#include <scriptbuilder/scriptbuilder.h>
 
 /** @brief A class above angelscript
 *
@@ -21,6 +22,10 @@ public:
     */
     ~ScriptEngine();
 
+	void loadScript(char* script);
+	void runScript(char* script, char* funcDecl);
 private:
     asIScriptEngine* m_engine;
+	CScriptBuilder m_builder;
+	asIScriptContext *m_context;
 };

@@ -11,6 +11,7 @@ using namespace sf;
 #define TITLE "TITLE"
 
 #include "Engine.h"
+#include "script\ScriptEngine.hpp"
 
 /**
 * The program entry point
@@ -58,6 +59,10 @@ int main(int argc, char** argv) {
 	}
 	searchdata->release(); // or delete searchdata; // or PathFinder::release(searchdata);
 	*/
+
+	ScriptEngine as;
+	as.loadScript("script.as");
+	as.runScript("script.as", "void main()");
 
 	m_Engine->Initialize();
 
