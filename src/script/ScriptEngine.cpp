@@ -52,9 +52,8 @@ void ScriptEngine::runScript(const std::string& script, const std::string& funcD
 	asIScriptFunction *func = mod->GetFunctionByDecl(funcDecl.c_str());
 	assert(func != 0);
 
-	asIScriptContext *ctx = m_engine->CreateContext();
-	ctx->Prepare(func);
-	int r = ctx->Execute();
+	m_context->Prepare(func);
+	int r = m_context->Execute();
 	assert(r == asEXECUTION_FINISHED);
 }
 
