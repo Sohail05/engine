@@ -118,10 +118,13 @@ add_custom_command(TARGET ${GAME} POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/${SCRIPTS_DIR} $<TARGET_FILE_DIR:${GAME}>/${SCRIPTS_DIR})
 		
-if (WINDOWS)		
+if (WINDOWS)
+if (BUILD_STATIC)
+else()		
 add_custom_command(TARGET ${GAME} POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${SFML_INCLUDE_DIR}/../bin $<TARGET_FILE_DIR:${GAME}>)
+endif()
 endif()
 
 # add an option for building the documentation
