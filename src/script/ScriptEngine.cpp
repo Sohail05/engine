@@ -3,6 +3,8 @@
 #include <cassert>
 #include <iostream>
 
+const std::string ScriptEngine::script_dir = "scripts";
+
 // Print the script string to the standard output stream
 void print(std::string &msg)
 {
@@ -34,20 +36,20 @@ ScriptEngine::ScriptEngine() : m_engine(nullptr)
 	m_context = m_engine->CreateContext();
 }
 
-void ScriptEngine::loadScript(char* script) {
-	int r = m_builder.StartNewModule(m_engine, script);
+void ScriptEngine::loadScript(const std::string& script) {
+	int r = m_builder.StartNewModule(m_engine, script.c_str());
 	assert(r >= 0);
 
-	r = m_builder.AddSectionFromFile(script);
+	r = m_builder.AddSectionFromFile(std::string(script_dir+script).c_str());
 	assert(r >= 0);
 
 	r = m_builder.BuildModule();
 	assert(r >= 0);
 }
 
-void ScriptEngine::runScript(char* script, char* funcDecl) {
-	asIScriptModule *mod = m_engine->GetModule(script);
-	asIScriptFunction *func = mod->GetFunctionByDecl(funcDecl);
+void ScriptEngine::runScript(const std::string& script, const std::string& funcDecl) {
+	asIScriptModule *mod = m_engine->GetModule(script.c_str());
+	asIScriptFunction *func = mod->GetFunctionByDecl(funcDecl.c_str());
 	assert(func != 0);
 
 	asIScriptContext *ctx = m_engine->CreateContext();

@@ -22,9 +22,10 @@ public:
     */
     ~ScriptEngine();
 
-	void loadScript(char* script);
-	void runScript(char* script, char* funcDecl);
+	void loadScript(const std::string& script);
+    void runScript(const std::string& script, const std::string& funcDecl);
 private:
+    static const std::string script_dir;
     asIScriptEngine* m_engine;
 	CScriptBuilder m_builder;
 	asIScriptContext *m_context;
