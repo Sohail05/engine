@@ -12,10 +12,6 @@ using namespace sf;
 
 #include "Engine.h"
 
-#ifdef _DEBUG
-#include <vld.h>
-#endif
-
 /**
 * The program entry point
 * @param argc the argument count
