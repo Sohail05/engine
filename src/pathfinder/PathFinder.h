@@ -2,6 +2,8 @@
 
 #include "Node.h"
 
+#include <SFML\Graphics.hpp>
+
 #include <vector>
 #include <memory>
 
@@ -25,21 +27,31 @@ struct mapdata {
 
 class searchdata {
 public:
-	searchdata(std::vector<std::shared_ptr<Node>>* path = nullptr);
+	searchdata(std::vector<std::shared_ptr<Node>>* path = nullptr, bool excludeUnnecessaryNodes = false);
 	~searchdata();
 
 	/**
 	* @returns whether a path was found
 	*/
 	bool isPathFound();
-	std::vector<std::shared_ptr<Node>>* getPath();
+
+	/**
+	* @returns positions of the next position relative to the grid
+	*/
+	std::vector<sf::Vector2u>* getNodePath();
+
+	/**
+	* @returns directions to the next position in the grid
+	*/
+	std::vector<sf::Vector2u>* getVectorPath();
 
 	/**
 	* releases the object
 	*/
 	void release();
 private:
-	std::vector<std::shared_ptr<Node>>* path;
+	std::vector<sf::Vector2u>* nodePath;
+	std::vector<sf::Vector2u>* vectorPath;
 };
 
 class PathFinder {
@@ -52,9 +64,10 @@ public:
 	/**
 	* @param map the grid
 	* @param diagonally whether the resulting path can go from tile to tile diagonally
+	* @param excludeUnnecessaryNodes removes nodes that do not change the direction of the path
 	* @returns the shortest path or nullptr if no path was found or two start locations or two end locations were found
 	*/
-	static searchdata* search(mapdata& map, bool diagonally = true);
+	static searchdata* search(mapdata& map, bool excludeUnnecessaryNodes = true, bool diagonally = true);
 	static void release(searchdata* data);
 private:
 	static const int32_t UNCHECKED = 0;

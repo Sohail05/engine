@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Node::Node(int32_t x, int32_t y, shared_ptr<Node> prev, shared_ptr<Node> end) : x(x), y(y), f(0), g(0), h(0), prev(prev) {
+Node::Node(uint32_t x, uint32_t y, shared_ptr<Node> prev, shared_ptr<Node> end) : x(x), y(y), f(0), g(0), h(0), prev(prev) {
 	if (prev && end) {
 		calculateHScore(end.get());
 		calculateFScore();
@@ -19,7 +19,7 @@ bool Node::isDiagonal(Node* node) {
 	return fabsf(x - node->x) == 1 && fabsf(y - node->y) == 1;
 }
 
-int32_t Node::getX() {
+uint32_t Node::getX() {
 	return x;
 }
 
@@ -42,19 +42,19 @@ void Node::calculateHScore(Node* end) {
 	h = fabsf(x - end->x) + fabsf(y - end->y);
 }
 
-int32_t Node::getY() {
+uint32_t Node::getY() {
 	return y;
 }
 
-int32_t Node::getFScore() {
+uint32_t Node::getFScore() {
 	return f;
 }
 
-int32_t Node::getGScore() {
+uint32_t Node::getGScore() {
 	return g;
 }
 
-int32_t Node::getHScore() {
+uint32_t Node::getHScore() {
 	return h;
 }
 

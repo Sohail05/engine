@@ -3,41 +3,73 @@
 #include <algorithm>
 
 using namespace std;
+using namespace sf;
 
 #define DELETE_MAPDATA(mapdata) \
-	for (int32_t i = 0; i < mapdata.height; i++) { \
+	for (uint32_t i = 0; i < mapdata.height; i++) { \
 		delete[] mapdata.map[i]; \
 	} \
 	delete[] mapdata.map;
 
 #define RETURN_NO_PATH return new searchdata
 
-searchdata::searchdata(vector<shared_ptr<Node>>* path) : path(path) {
-	
+searchdata::searchdata(vector<shared_ptr<Node>>* path, bool excludeUnnecessaryNodes) {
+	if (path) {
+		nodePath = new vector<Vector2u>;
+		vectorPath = new vector<Vector2u>;
+
+		for (int32_t i = 0; i < path->size() - 1; i++) {
+			auto node1 = path->at(i);
+			auto node2 = path->at(i + 1);
+
+			nodePath->push_back(Vector2u(node2->getX(), node2->getY()));
+			vectorPath->push_back(Vector2u(node2->getX() - node1->getX(), node2->getY() - node1->getY()));
+		}
+
+		if (excludeUnnecessaryNodes) {
+			for (int32_t i = 0; i < vectorPath->size() - 1; i++) {
+				auto v1 = vectorPath->at(i);
+				auto v2 = vectorPath->at(i + 1);
+
+				if (v1 == v2) {
+					vectorPath->erase(vectorPath->begin() + i);
+					nodePath->erase(nodePath->begin() + i);
+				}
+			}
+		}
+	} else {
+		nodePath = nullptr;
+		vectorPath = nullptr;
+	}
 }
 
 searchdata::~searchdata() {
-	delete path;
+	delete nodePath;
+	delete vectorPath;
 }
 
 bool searchdata::isPathFound() {
-	return path != nullptr;
+	return vectorPath != nullptr;
 }
 
-vector<shared_ptr<Node>>* searchdata::getPath() { 
-	return path;
+vector<Vector2u>* searchdata::getNodePath() { 
+	return nodePath;
+}
+
+vector<Vector2u>* searchdata::getVectorPath() {
+	return vectorPath;
 }
 
 void searchdata::release() {
 	delete this; 
 }
 
-searchdata* PathFinder::search(mapdata& map, bool diagonally) {
+searchdata* PathFinder::search(mapdata& map, bool excludeUnnecessaryNodes, bool diagonally) {
 	shared_ptr<Node> start = nullptr;
 	shared_ptr<Node> end = nullptr;
 
-	for (int32_t iy = 0; iy < map.height; iy++) {
-		for (int32_t ix = 0; ix < map.width; ix++) {
+	for (uint32_t iy = 0; iy < map.height; iy++) {
+		for (uint32_t ix = 0; ix < map.width; ix++) {
 			switch (*(int32_t*)(map.map + iy * map.width + ix)) {
 				case START:
 					if (start) {
@@ -62,11 +94,11 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 	vector<shared_ptr<Node>> openList;
 	vector<shared_ptr<Node>> closeList;
 	int32_t** checkmapArray = new int32_t*[map.height];
-	for (int32_t i = 0; i < map.height; i++) {
+	for (uint32_t i = 0; i < map.height; i++) {
 		checkmapArray[i] = new int32_t[map.width];
 	}
-	for (int32_t iy = 0; iy < map.height; iy++) {
-		for (int32_t ix = 0; ix < map.width; ix++) {
+	for (uint32_t iy = 0; iy < map.height; iy++) {
+		for (uint32_t ix = 0; ix < map.width; ix++) {
 			checkmapArray[iy][ix] = UNCHECKED;
 		}
 	}
@@ -93,7 +125,7 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 		}
 		
 		for (auto node : *containedNodes) {
-			int32_t g = step->getGScore();
+			uint32_t g = step->getGScore();
 			if (node->isDiagonal(step.get())) {
 				g += MOVEMENTCOST_DIAGONAL;
 			} else {
@@ -112,6 +144,8 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 		parent = step;
 	}
 
+	DELETE_MAPDATA(checkmap);
+
 	vector<shared_ptr<Node>>* path = new vector<shared_ptr<Node>>;
 
 	auto n = closeList.back();
@@ -121,17 +155,15 @@ searchdata* PathFinder::search(mapdata& map, bool diagonally) {
 		path->push_back(n);
 	}
 
-	path->pop_back();
-	reverse(path->begin(), path->end());
+	//path->pop_back();
+	std::reverse(path->begin(), path->end());
 
-	DELETE_MAPDATA(checkmap);
-
-	return new searchdata(path);
+	return new searchdata(path, excludeUnnecessaryNodes);
 }
 
 vector<shared_ptr<Node>>* PathFinder::addNbors(mapdata& map, mapdata& checkmap, bool diagonally, vector<shared_ptr<Node>>& list, shared_ptr<Node>& parent, shared_ptr<Node>& end) {
-	int32_t x = parent->getX();
-	int32_t y = parent->getY();
+	uint32_t x = parent->getX();
+	uint32_t y = parent->getY();
 
 	auto containedNodes = new vector<shared_ptr<Node>>;
 
@@ -199,8 +231,8 @@ vector<shared_ptr<Node>>* PathFinder::addNbors(mapdata& map, mapdata& checkmap, 
 }
 
 shared_ptr<Node> PathFinder::addToList(mapdata& map, mapdata& checkmap, vector<shared_ptr<Node>>& list, shared_ptr<Node>& node) {
-	int32_t x = node->getX();
-	int32_t y = node->getY();
+	uint32_t x = node->getX();
+	uint32_t y = node->getY();
 
 	if (checkmap.map[y][x] == CHECKED) {
 		return node;

@@ -8,7 +8,7 @@
 
 class Node {
 public:
-	Node(int32_t x, int32_t y, std::shared_ptr<Node> prev = nullptr, std::shared_ptr<Node> end = nullptr);
+	Node(uint32_t x, uint32_t y, std::shared_ptr<Node> prev = nullptr, std::shared_ptr<Node> end = nullptr);
 	~Node();
 
 	/**
@@ -20,12 +20,12 @@ public:
 	/**
 	* @returns the X position of the node on the grid
 	*/
-	int32_t getX();
+	uint32_t getX();
 
 	/**
 	* @returns the Y position of the node on the grid
 	*/
-	int32_t getY();
+	uint32_t getY();
 
 	/**
 	* recalculates the F score
@@ -47,17 +47,17 @@ public:
 	/**
 	* @returns the F position of the node
 	*/
-	int32_t getFScore();
+	uint32_t getFScore();
 
 	/**
 	* @returns the G position of the node
 	*/
-	int32_t getGScore();
+	uint32_t getGScore();
 
 	/**
 	* @returns the H position of the node
 	*/
-	int32_t getHScore();
+	uint32_t getHScore();
 	
 	/**
 	* set the previous node
@@ -69,8 +69,8 @@ public:
 	*/
 	std::shared_ptr<Node>& getPrevious();
 private:
-	int32_t x, y;
-	int32_t f, g, h;
+	uint32_t x, y;
+	uint32_t f, g, h;
 	std::shared_ptr<Node> prev;
 };
 
