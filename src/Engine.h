@@ -1,7 +1,8 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <memory>
+#include <SFML/Graphics.hpp>
 
 #include "StateManager.h"
 #include "MenuState.h"
@@ -26,11 +27,13 @@ public:
 	Engine( std::string _Title, int _WindowWidth, int _WindowHeight, int _WindowPositionX, int _WindowPositionY );
 	~Engine( void );
 
+	inline void SetGameState( std::unique_ptr<GameState> State ) { m_GameState = std::move(State); }
+	inline void SetMenuState( std::unique_ptr<MenuState> State ) { m_MenuState = std::move(State); }
 private:
 
-	StateManager *m_StateManager;
-	State    *m_CurrentState, *m_GameState, *m_MenuState;
-
+	std::unique_ptr<GameState> m_GameState;
+	std::unique_ptr<MenuState> m_MenuState;
+	
 	std::string m_Title;	
 	int m_WindowWidth, m_WindowHeight;
 	int m_WindowPositionX, m_WindowPositionY;

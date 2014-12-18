@@ -21,10 +21,19 @@ using namespace sf;
 */
 int main(int argc, char** argv) {
 
-	Engine *m_Engine = new Engine( TITLE, WIDTH, HEIGHT, 0, 0 );
+	std::unique_ptr<Engine>    Engine(  new Engine( TITLE, WIDTH, HEIGHT, 0, 0 ) );
+	
+	int WindowWidth  = Engine->GetWindowWidth();
+	int WindowHeight = Engine->GetWindowHeight();
 
-	RenderWindow window(VideoMode( m_Engine->GetWindowWidth(), m_Engine->GetWindowHeight() ), m_Engine->GetWindowTitle());
-	window.setPosition( sf::Vector2i( m_Engine->GetWindowPositionX(), m_Engine->GetWindowPositionY() ) );
+	std::unique_ptr<GameState> GameState( new GameState( WindowWidth, WindowHeight ) );
+	std::unique_ptr<MenuState> MenuState( new MenuState( WindowWidth, WindowHeight ) );
+
+	Engine->SetGameState( std::move( GameState ) );
+	Engine->SetMenuState( std::move( MenuState ) );
+
+	RenderWindow window(VideoMode( WindowWidth, WindowHeight ), Engine->GetWindowTitle());
+	window.setPosition( sf::Vector2i( Engine->GetWindowPositionX(), Engine->GetWindowPositionY() ) );
 
 
 	//int32_t map[5][6] = {
@@ -63,7 +72,7 @@ int main(int argc, char** argv) {
 	as.loadScript("test.as");
 	as.runScript("test.as", "void main()");
 
-	m_Engine->Initialize();
+	Engine->Initialize();
 
 	while (window.isOpen()) {
 		Event event;
@@ -75,14 +84,14 @@ int main(int argc, char** argv) {
 
 		window.clear(Color::Red);
 
-		m_Engine->Update();
-		m_Engine->Render( &window );
+		Engine->Update();
+		Engine->Render( &window );
 
 		//window.draw();
 		window.display();
 	}
 	
-	m_Engine->Release();
+	Engine->Release();
 
     return EXIT_SUCCESS;
 }
