@@ -1,18 +1,16 @@
 
-
 #include <SFML/Graphics.hpp>
 
+#include "Engine.h"
 #include "GameState.h"
+#include "script/Scriptengine.hpp"
 #include "pathfinder/PathFinder.h"
 
-using namespace sf;
-
-#define WIDTH 800
-#define HEIGHT 600
-#define TITLE "TITLE"
-
-#include "Engine.h"
-#include "script/Scriptengine.hpp"
+const int   WINDOWWIDTH  = 640;
+const int   WINDOWHEIGHT = 512;
+const int   WINDOWPOSITIONX = 100;
+const int   WINDOWPOSITIONY = 100;
+const char* WINDOWTITLE = "TITLE";
 
 /**
 * The program entry point
@@ -22,7 +20,7 @@ using namespace sf;
 */
 int main(int,char**) {
 
-	std::unique_ptr<Engine> engine(  new Engine( TITLE, WIDTH, HEIGHT, 0, 0 ) );
+	std::unique_ptr<Engine> engine(  new Engine( WINDOWTITLE, WINDOWWIDTH, WINDOWHEIGHT, WINDOWPOSITIONX, WINDOWPOSITIONY ) );
 	
 	int WindowWidth  = engine->GetWindowWidth();
 	int WindowHeight = engine->GetWindowHeight();
@@ -33,7 +31,7 @@ int main(int,char**) {
 	engine->SetGameState( std::move( gameState ) );
 	engine->SetMenuState( std::move( menuState ) );
 
-	RenderWindow window(VideoMode( WindowWidth, WindowHeight ), engine->GetWindowTitle());
+	sf::RenderWindow window( sf::VideoMode( WindowWidth, WindowHeight ), engine->GetWindowTitle());
 	window.setPosition( sf::Vector2i( engine->GetWindowPositionX(), engine->GetWindowPositionY() ) );
 
 
@@ -78,17 +76,19 @@ int main(int,char**) {
 
 	engine->Initialize();
 
-	while (window.isOpen()) {
+	while( window.isOpen() ) 
+	{	
+		sf::Event event;
 		
-		Event event;
-		
-		while (window.pollEvent(event)) {
-			if (event.type == Event::Closed) {
+		while( window.pollEvent( event ) ) 
+		{
+			if( event.type == sf::Event::Closed ) 
+			{
 				window.close();
 			}
 		}
 
-		window.clear(Color::Black);
+		window.clear( sf::Color::Black );
 
 		engine->Update();
 		engine->Render( &window );

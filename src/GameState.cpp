@@ -1,8 +1,9 @@
 #include "GameState.h"
 
+
 void GameState::Initialize() 
 {
-	m_Map = new Map( 13, 10 );
+	m_Map = new Map( 10, 8 );
 	m_Map->Initialize();
 }
 
