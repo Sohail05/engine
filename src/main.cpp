@@ -20,7 +20,7 @@ using namespace sf;
 * @param argv the array containing the arguments
 * @return the returncode of the program
 */
-int main(int argc, char** argv) {
+int main() {
 
 	std::unique_ptr<Engine> engine(  new Engine( TITLE, WIDTH, HEIGHT, 0, 0 ) );
 	
