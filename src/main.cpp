@@ -22,19 +22,19 @@ using namespace sf;
 */
 int main(int argc, char** argv) {
 
-	std::unique_ptr<Engine> Engine(  new Engine( TITLE, WIDTH, HEIGHT, 0, 0 ) );
+	std::unique_ptr<Engine> engine(  new Engine( TITLE, WIDTH, HEIGHT, 0, 0 ) );
 	
-	int WindowWidth  = Engine->GetWindowWidth();
-	int WindowHeight = Engine->GetWindowHeight();
+	int WindowWidth  = engine->GetWindowWidth();
+	int WindowHeight = engine->GetWindowHeight();
 
-	std::unique_ptr<GameState> GameState( new GameState( WindowWidth, WindowHeight ) );
-	std::unique_ptr<MenuState> MenuState( new MenuState( WindowWidth, WindowHeight ) );
+	std::unique_ptr<GameState> gameState( new GameState( WindowWidth, WindowHeight ) );
+	std::unique_ptr<MenuState> menuState( new MenuState( WindowWidth, WindowHeight ) );
 
-	Engine->SetGameState( std::move( GameState ) );
-	Engine->SetMenuState( std::move( MenuState ) );
+	engine->SetGameState( std::move( gameState ) );
+	engine->SetMenuState( std::move( menuState ) );
 
-	RenderWindow window(VideoMode( WindowWidth, WindowHeight ), Engine->GetWindowTitle());
-	window.setPosition( sf::Vector2i( Engine->GetWindowPositionX(), Engine->GetWindowPositionY() ) );
+	RenderWindow window(VideoMode( WindowWidth, WindowHeight ), engine->GetWindowTitle());
+	window.setPosition( sf::Vector2i( engine->GetWindowPositionX(), engine->GetWindowPositionY() ) );
 
 
 	//int32_t map[5][6] = {
@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
 	as.loadScript("test.as");
 	as.runScript("test.as", "void main()");
 
-	Engine->Initialize();
+	engine->Initialize();
 
 	while (window.isOpen()) {
 		Event event;
@@ -85,14 +85,14 @@ int main(int argc, char** argv) {
 
 		window.clear(Color::Red);
 
-		Engine->Update();
-		Engine->Render( &window );
+		engine->Update();
+		engine->Render( &window );
 
 		//window.draw();
 		window.display();
 	}
 	
-	Engine->Release();
+	engine->Release();
 
     return EXIT_SUCCESS;
 }
