@@ -57,10 +57,10 @@ void Engine::Release() {
 	//delete m_MenuState;
 }
 
-Engine::Engine( std::string _Title, int _WindowWidth, int _WindowHeight, int _WindowPositionX, int _WindowPositionY ) :
-	m_Title( _Title ), 
-	m_WindowWidth(_WindowWidth),         m_WindowHeight(_WindowHeight), 
-	m_WindowPositionX(_WindowPositionX), m_WindowPositionY(_WindowPositionY)
+Engine::Engine( std::string Title, int WindowWidth, int WindowHeight, int WindowPositionX, int WindowPositionY ) :
+	m_Title( Title ), 
+	m_WindowWidth(WindowWidth),         m_WindowHeight(WindowHeight), 
+	m_WindowPositionX(WindowPositionX), m_WindowPositionY(WindowPositionY)
 {
 
 }

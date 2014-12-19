@@ -21,7 +21,7 @@ using namespace sf;
 */
 int main(int argc, char** argv) {
 
-	std::unique_ptr<Engine>    Engine(  new Engine( TITLE, WIDTH, HEIGHT, 0, 0 ) );
+	std::unique_ptr<Engine> Engine(  new Engine( TITLE, WIDTH, HEIGHT, 0, 0 ) );
 	
 	int WindowWidth  = Engine->GetWindowWidth();
 	int WindowHeight = Engine->GetWindowHeight();
