@@ -1,25 +1,25 @@
 #include "GameState.h"
 
-void GameState::Render( sf::RenderWindow *_window ) {
-		
-	sf::CircleShape CS( 20.f, 60 );
-	CS.setFillColor( sf::Color::Black );
-
-	for( float y = 0; y < 20; y++ ) 
-	{
-		for( float x = 0; x < 20; x++ ) 
-		{
-			CS.setPosition( x * 50, y * 50 );
-			_window->draw( CS );
-		}
-	}
+void GameState::Initialize() 
+{
+	m_Map = new Map( 13, 10 );
+	m_Map->Initialize();
 }
 
-GameState::GameState( int _ScreenWidth, int _ScreenHeight ) :
-	State( _ScreenWidth, _ScreenHeight )
+void GameState::Update() 
+{
+	m_Map->Update();
+}
+
+void GameState::Render( sf::RenderWindow* window ) 
+{
+	m_Map->Render( window );
+}
+
+GameState::GameState( int ScreenWidth, int ScreenHeight ) :
+	State( ScreenWidth, ScreenHeight )
 {
 }
-
 
 GameState::~GameState(void)
 {

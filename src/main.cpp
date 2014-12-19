@@ -69,26 +69,30 @@ int main(int,char**) {
 	//}
 	//searchdata->release(); // or delete searchdata; // or PathFinder::release(searchdata);
 
+
+	/* assertion failing - prob due to void main() - DMG 
 	ScriptEngine as;
 	as.loadScript("test.as");
 	as.runScript("test.as", "void main()");
+	*/
 
 	engine->Initialize();
 
 	while (window.isOpen()) {
+		
 		Event event;
+		
 		while (window.pollEvent(event)) {
 			if (event.type == Event::Closed) {
 				window.close();
 			}
 		}
 
-		window.clear(Color::Red);
+		window.clear(Color::Black);
 
 		engine->Update();
 		engine->Render( &window );
 
-		//window.draw();
 		window.display();
 	}
 	

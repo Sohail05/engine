@@ -13,60 +13,31 @@ class Engine
 {
 public:
 
-	Engine( std::string _Title, int _WindowWidth, int _WindowHeight, int _WindowPositionX, int _WindowPositionY );
+	Engine( std::string Title, int WindowWidth, int WindowHeight, int WindowPositionX, int WindowPositionY );
 	~Engine( void );
 
-	/**
-	* Main Initialize Loop 
-	*/
+	/** Main Initialize Loop */
 	void Initialize();
-	
-	/**
-	* Main Update Loop 
-	*/
+	/** Main Update Loop */
 	void Update();
-	
-	/**
-	* Main Render Loop 
-	* @param Handle to a Render Window
-	*/
+	/** Main Render Loop @param Handle to a Render Window */
 	void Render( sf::RenderWindow* Window );
-	
-	/**
-	* Release any memory obtained
-	*/
+	/** Release any memory obtained */
 	void Release();
-	/**
-	* Sets the GameState variable
-	* @param unique_pointer to a GameState
-	*/
+	/** Sets the GameState variable @param unique_pointer to a GameState */
 	inline void SetGameState( std::unique_ptr<GameState> GameState ) { m_GameState = std::move( GameState ); }
-	/**
-	* Sets the MenuState variable
-	* @param unique_pointer to a MenuState
-	*/
-
+	/**Sets the MenuState variable @param unique_pointer to a MenuState*/
 	inline void SetMenuState( std::unique_ptr<MenuState> MenuState ) { m_MenuState = std::move( MenuState ); }
 	
-	/**
-	* @returns the Title for the Window
-	*/
+	/** @returns the Title for the Window */
 	inline std::string GetWindowTitle()     { return m_Title;           }
-	/**
-	* @returns the Width of the Window in pixels
-	*/
+	/** @returns the Width of the Window in pixels */
 	inline int		   GetWindowWidth()     { return m_WindowWidth;     }
-	/**
-	* @returns the Height of the Window in pixels
-	*/
+	/** @returns the Height of the Window in pixels */
 	inline int         GetWindowHeight()    { return m_WindowHeight;    }
-	/**
-	* @returns the Position of the Window along the xAxis
-	*/
+	/** @returns the Position of the Window along the xAxis */
 	inline int         GetWindowPositionX() { return m_WindowPositionX; }
-	/**
-	* @returns the Position of the Window along the yAxis
-	*/
+	/** @returns the Position of the Window along the yAxis */
 	inline int         GetWindowPositionY() { return m_WindowPositionY; }
 
 private:
