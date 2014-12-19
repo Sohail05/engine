@@ -51,23 +51,23 @@ public:
 	/**
 	* @returns the Title for the Window
 	*/
-	inline std::string Engine::GetWindowTitle()     { return m_Title;           }	
+	inline std::string GetWindowTitle()     { return m_Title;           }
 	/**
 	* @returns the Width of the Window in pixels
 	*/
-	inline int		   Engine::GetWindowWidth()     { return m_WindowWidth;     }
+	inline int		   GetWindowWidth()     { return m_WindowWidth;     }
 	/**
 	* @returns the Height of the Window in pixels
 	*/
-	inline int         Engine::GetWindowHeight()    { return m_WindowHeight;    }  
+	inline int         GetWindowHeight()    { return m_WindowHeight;    }
 	/**
 	* @returns the Position of the Window along the xAxis
 	*/
-	inline int         Engine::GetWindowPositionX() { return m_WindowPositionX; }
+	inline int         GetWindowPositionX() { return m_WindowPositionX; }
 	/**
 	* @returns the Position of the Window along the yAxis
 	*/
-	inline int         Engine::GetWindowPositionY() { return m_WindowPositionY; }
+	inline int         GetWindowPositionY() { return m_WindowPositionY; }
 
 private:
 
