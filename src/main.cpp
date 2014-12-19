@@ -2,7 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "pathfinder\PathFinder.h"
+#include "GameState.h"
+#include "pathfinder/PathFinder.h"
 
 using namespace sf;
 
@@ -11,7 +12,7 @@ using namespace sf;
 #define TITLE "TITLE"
 
 #include "Engine.h"
-#include "script\ScriptEngine.hpp"
+#include "script/Scriptengine.hpp"
 
 /**
 * The program entry point
