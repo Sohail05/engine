@@ -2,8 +2,7 @@
 #include <scriptstdstring/scriptstdstring.h>
 #include <cassert>
 #include <iostream>
-
-const std::string ScriptEngine::script_dir = "scripts/";
+#include <Platform.hpp>
 
 // Print the script string to the standard output stream
 void print(std::string &msg)
@@ -40,7 +39,7 @@ void ScriptEngine::loadScript(const std::string& script) {
 	int r = m_builder.StartNewModule(m_engine, script.c_str());
 	assert(r >= 0);
 
-	r = m_builder.AddSectionFromFile(std::string(script_dir+script).c_str());
+	r = m_builder.AddSectionFromFile(std::string(GetScriptsPath() + script).c_str());
 	assert(r >= 0);
 
 	r = m_builder.BuildModule();
