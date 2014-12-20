@@ -7,21 +7,25 @@ using namespace std;
 using namespace sf;
 
 
-struct databuffer {
+struct databuffer
+{
 	char name[255];
 	uint32_t x, y, width, height;
 };
 
 
-SpriteSheet* SpriteSheet::getInstance() {
+SpriteSheet* SpriteSheet::getInstance()
+{
 	static SpriteSheet* spriteSheet = nullptr;
-	if (!spriteSheet) {
+	if (!spriteSheet)
+	{
 		spriteSheet = new SpriteSheet;
 	}
 	return spriteSheet;
 }
 
-void SpriteSheet::put(const std::string& spritesheet, const string& spritesheetdata) {
+void SpriteSheet::put(const std::string& spritesheet, const string& spritesheetdata)
+{
 	string data;
 	databuffer buffer;
 	ifstream infile;
@@ -30,10 +34,12 @@ void SpriteSheet::put(const std::string& spritesheet, const string& spritesheetd
 	Image ssheet;
 	ssheet.loadFromFile(spritesheet);
 
-	while (!infile.eof()) {
+	while (!infile.eof()) 
+	{
 		getline(infile, data);
 
-		if (data[0] == '#' || data.empty()) {
+		if (data[0] == '#' || data.empty())
+		{
 			continue;
 		}
 		
@@ -44,15 +50,18 @@ void SpriteSheet::put(const std::string& spritesheet, const string& spritesheetd
 		Texture texture;
 		texture.loadFromImage(ssheet, rect);
 
-		textures[buffer.name] = texture;
+		m_textures[buffer.name] = texture;
 	}
+
 	infile.close();
 }
 
-Texture& SpriteSheet::get(const string& name) {
-	return textures[name];
+Texture& SpriteSheet::get(const string& name)
+{
+	return m_textures[name];
 }
 
-void SpriteSheet::end() {
+void SpriteSheet::end()
+{
 	delete this;
 }

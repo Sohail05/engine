@@ -7,7 +7,8 @@
 #include <vector>
 #include <memory>
 
-struct mapdata {
+struct mapdata
+{
 
 	/**
 	* the map
@@ -25,7 +26,8 @@ struct mapdata {
 	uint32_t height;
 };
 
-class searchdata {
+class searchdata
+{
 public:
 	searchdata(std::vector<std::shared_ptr<Node>>* path = nullptr, bool excludeUnnecessaryNodes = false);
 	~searchdata();
@@ -50,11 +52,12 @@ public:
 	*/
 	void release();
 private:
-	std::vector<sf::Vector2u>* nodePath;
-	std::vector<sf::Vector2u>* vectorPath;
+	std::vector<sf::Vector2u>* m_nodePath;
+	std::vector<sf::Vector2u>* m_vectorPath;
 };
 
-class PathFinder {
+class PathFinder
+{
 public:
 	static const int32_t NORMAL = 0;
 	static const int32_t START = 1;

@@ -6,7 +6,8 @@
 #define MOVEMENTCOST_STRAIGHT 10
 #define MOVEMENTCOST_DIAGONAL 14
 
-class Node {
+class Node
+{
 public:
 	Node(uint32_t x, uint32_t y, std::shared_ptr<Node> prev = nullptr, std::shared_ptr<Node> end = nullptr);
 	~Node();

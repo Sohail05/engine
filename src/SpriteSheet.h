@@ -3,7 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class SpriteSheet {
+class SpriteSheet
+{
 public:
 	static SpriteSheet* getInstance();
 	
@@ -11,6 +12,6 @@ public:
 	sf::Texture& get(const std::string& name);
 	void end();
 private:
-	std::map<std::string, sf::Texture> textures;
+	std::map<std::string, sf::Texture> m_textures;
 };
 
