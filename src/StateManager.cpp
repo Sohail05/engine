@@ -1,10 +1,10 @@
 #include "StateManager.h"
 
-void StateManager::AddState( std::string _Name, State &_State ) {
+void StateManager::AddState( std::string _Name, IState &_State ) {
 	m_StateMap[_Name] = &_State;
 }
 
-State* StateManager::GetState( std::string _Name ) {
+IState* StateManager::GetState( std::string _Name ) {
 	return m_StateMap[_Name];
 } 
 	

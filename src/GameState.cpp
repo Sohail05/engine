@@ -1,9 +1,11 @@
 #include "GameState.h"
 
+const int DEFAULT_MAP_WIDTH  = 16;
+const int DEFAULT_MAP_HEIGHT = 11;
 
 void GameState::Initialize() 
 {
-	m_Map = new Map( 10, 8 );
+	m_Map = new Map( m_MapWidth, m_MapHeight );
 	m_Map->Initialize();
 }
 
@@ -18,7 +20,8 @@ void GameState::Render( sf::RenderWindow* window )
 }
 
 GameState::GameState( int ScreenWidth, int ScreenHeight ) :
-	State( ScreenWidth, ScreenHeight )
+	IState( ScreenWidth, ScreenHeight ),
+	m_MapWidth( DEFAULT_MAP_WIDTH ), m_MapHeight( DEFAULT_MAP_HEIGHT )
 {
 }
 

@@ -4,23 +4,23 @@
 #include <string>
 #include <map>
 
-#include "State.h"
+#include "IState.h"
 
 class StateManager
 {
 
 public:
 
-	void AddState( std::string _Name, State &_State );
+	void AddState( std::string _Name, IState &_State );
 
-	State *GetState( std::string _Name );
+	IState *GetState( std::string _Name );
 	
 	StateManager( );
 	~StateManager( void );
 
 private:
 
-	std::map< std::string, State* > m_StateMap;
+	std::map< std::string, IState* > m_StateMap;
 
 };
 

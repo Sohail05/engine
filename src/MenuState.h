@@ -1,8 +1,8 @@
 #pragma once
 
-#include "State.h"
+#include "IState.h"
 
-class MenuState : public State
+class MenuState : public IState
 {
 public:
 

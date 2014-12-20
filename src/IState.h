@@ -1,11 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class State
+class IState
 {
 public:
-	State( int ScreenWidth, int ScreenHeight );
-	virtual ~State( void );
+	IState( int ScreenWidth, int ScreenHeight );
+	virtual ~IState( void );
 
 	virtual void Initialize() = 0;
 	virtual void Update()     = 0;
