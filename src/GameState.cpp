@@ -3,18 +3,18 @@
 const int DEFAULT_MAP_WIDTH  = 16;
 const int DEFAULT_MAP_HEIGHT = 11;
 
-void GameState::Initialize() 
+void GameState::VInitialize() 
 {
 	m_Map = new Map( m_MapWidth, m_MapHeight );
 	m_Map->Initialize();
 }
 
-void GameState::Update() 
+void GameState::VUpdate() 
 {
 	m_Map->Update();
 }
 
-void GameState::Render( sf::RenderWindow* window ) 
+void GameState::VRender( sf::RenderWindow* window ) 
 {
 	m_Map->Render( window );
 }

@@ -1,6 +1,6 @@
 #include "MenuState.h"
 
-void MenuState::Initialize() 
+void MenuState::VInitialize() 
 {
 	for( int i = 0; i < 4; i++ ) {
 		m_RecShape[i].setSize( sf::Vector2f( 400, 100 ) );
@@ -9,12 +9,12 @@ void MenuState::Initialize()
 	}
 }
 
-void MenuState::Update()
+void MenuState::VUpdate()
 {
 
 }
 
-void MenuState::Render( sf::RenderWindow *_window ) 
+void MenuState::VRender( sf::RenderWindow *_window ) 
 {
 	for( int i = 0; i < 4; i++ ) 
 		_window->draw( 	m_RecShape[i] );

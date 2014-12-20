@@ -37,7 +37,7 @@ void Map::Update()
 void Map::Render( sf::RenderWindow* Window )
 {		
 	std::unique_ptr<sf::RectangleShape> Rectangle( new sf::RectangleShape() );
-	Rectangle->setSize( sf::Vector2f( m_TileSize, m_TileSize ) );
+	Rectangle->setSize( sf::Vector2f( m_TileSize, (float) m_TileSize ) );
 
 	for( int y = 0; y < m_MapHeight; y++ ) 
 	{
@@ -46,22 +46,22 @@ void Map::Render( sf::RenderWindow* Window )
 			switch( m_MapData[ y * m_MapWidth + x ] )
 			{
 				case 1:
-					Rectangle->setPosition( x * m_TileSize, y * m_TileSize );
+					Rectangle->setPosition( (float) x * m_TileSize, y * m_TileSize );
 					Rectangle->setFillColor( sf::Color( 0, 0, 100 ));
 					Window->draw( *Rectangle );
 				break;
 				case 2:
-					Rectangle->setPosition( x * m_TileSize, y * m_TileSize );
+					Rectangle->setPosition( (float) x * m_TileSize, y * m_TileSize );
 					Rectangle->setFillColor( sf::Color( 150, 150, 0 ) );
 					Window->draw( *Rectangle );
 				break;
 				case 3:
-					Rectangle->setPosition( x * m_TileSize, y * m_TileSize );
+					Rectangle->setPosition( (float) x * m_TileSize, y * m_TileSize );
 					Rectangle->setFillColor( sf::Color::Blue );
 					Window->draw( *Rectangle );
 				break;
 				default:
-					Rectangle->setPosition( x * m_TileSize, y * m_TileSize );
+					Rectangle->setPosition( (float) x * m_TileSize, y * m_TileSize );
 					Rectangle->setFillColor( sf::Color( 0, 100, 0 ) );
 					Window->draw( *Rectangle );
 				break;

@@ -6,9 +6,9 @@ class MenuState : public IState
 {
 public:
 
-	void Initialize();
-	void Update();
-	void Render( sf::RenderWindow *_window );
+	void VInitialize();
+	void VUpdate();
+	void VRender( sf::RenderWindow *_window );
 
 	MenuState( int _ScreenWidth, int _ScreenHeight );
 	~MenuState( void );

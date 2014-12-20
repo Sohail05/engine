@@ -2,20 +2,20 @@
 
 void Engine::Initialize()
 {
-	m_GameState->Initialize();
+	m_GameState->VInitialize();
 	//m_MenuState->Initialize();
 	
 }
 
 void Engine::Update()
 {
-	m_GameState->Update();
+	m_GameState->VUpdate();
 	//m_MenuState->Update();
 }
 
 void Engine::Render( sf::RenderWindow* Window )
 {
-	m_GameState->Render( Window );
+	m_GameState->VRender( Window );
 	//m_MenuState->Render( _Window );
 }
 

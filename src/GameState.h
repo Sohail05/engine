@@ -10,9 +10,9 @@ public:
 	GameState( int ScreenWidth, int ScreenHeight );
 	~GameState( void );
 
-	void Initialize(); 
-	void Update();
-	void Render( sf::RenderWindow* window );
+	void VInitialize(); 
+	void VUpdate();
+	void VRender( sf::RenderWindow* window );
 	
 private:
 	Map* m_Map;
