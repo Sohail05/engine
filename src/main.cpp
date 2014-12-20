@@ -20,19 +20,19 @@ const char* WINDOWTITLE = "- Digital Pioneers - GameEngine - Demo v0.001";
 */
 int main(int,char**) {
 
-	std::unique_ptr<Engine> Engine(  new Engine( WINDOWTITLE, WINDOWWIDTH, WINDOWHEIGHT, WINDOWPOSITIONX, WINDOWPOSITIONY ) );
+	std::unique_ptr<Engine> engine(  new Engine( WINDOWTITLE, WINDOWWIDTH, WINDOWHEIGHT, WINDOWPOSITIONX, WINDOWPOSITIONY ) );
 	
-	int WindowWidth  = Engine->GetWindowWidth();
-	int WindowHeight = Engine->GetWindowHeight();
+	int WindowWidth  = engine->GetWindowWidth();
+	int WindowHeight = engine->GetWindowHeight();
 
 	std::unique_ptr<GameState> gameState( new GameState( WindowWidth, WindowHeight ) );
 	std::unique_ptr<MenuState> menuState( new MenuState( WindowWidth, WindowHeight ) );
 
-	Engine->SetGameState( std::move( gameState ) );
-	Engine->SetMenuState( std::move( menuState ) );
+	engine->SetGameState( std::move( gameState ) );
+	engine->SetMenuState( std::move( menuState ) );
 
-	sf::RenderWindow window( sf::VideoMode( WindowWidth, WindowHeight ), Engine->GetWindowTitle());
-	window.setPosition( sf::Vector2i( Engine->GetWindowPositionX(), Engine->GetWindowPositionY() ) );
+	sf::RenderWindow window( sf::VideoMode( WindowWidth, WindowHeight ), engine->GetWindowTitle());
+	window.setPosition( sf::Vector2i( engine->GetWindowPositionX(), engine->GetWindowPositionY() ) );
 
 
 	//int32_t map[5][6] = {
@@ -68,13 +68,13 @@ int main(int,char**) {
 	//searchdata->release(); // or delete searchdata; // or PathFinder::release(searchdata);
 
 
-	/* assertion failing - prob due to void main() - DMG 
+	/* assertion failing - prob due to void main() - DMG
 	ScriptEngine as;
 	as.loadScript("test.as");
 	as.runScript("test.as", "void main()");
-	*/
+    */
 
-	Engine->Initialize();
+	engine->Initialize();
 
 	while( window.isOpen() ) 
 	{	
@@ -90,13 +90,13 @@ int main(int,char**) {
 
 		window.clear( sf::Color::Black );
 
-		Engine->Update();
-		Engine->Render( &window );
+		engine->Update();
+		engine->Render( &window );
 
 		window.display();
 	}
 	
-	Engine->Release();
+	engine->Release();
 
     return EXIT_SUCCESS;
 }
