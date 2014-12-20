@@ -91,7 +91,13 @@ message(STATUS "Angelscript library: ${Angelscript_LIBRARY}")
 
 file(GLOB_RECURSE SOURCE_FILES ${SOURCES_DIR}/[a-z,A-Z]*.[c,h]*)
 
-set(GAME_INCLUDE_DIRS "${SFML_INCLUDE_DIR};${Angelscript_INCLUDE_DIR};${Angelscript_ADDON_DIR};")
+if(${CMAKE_HOST_APPLE})
+	# objective-c++ source files, like ResourcePath.mm
+	file(GLOB_RECURSE OBJCPP_SOURCE_FILES ${SOURCES_DIR}/[a-z,A-Z]*.mm)
+	set(SOURCE_FILES "${SOURCE_FILES};${OBJCPP_SOURCE_FILES}")
+endif()
+
+set(GAME_INCLUDE_DIRS "${SOURCES_DIR}/include;${SFML_INCLUDE_DIR};${Angelscript_INCLUDE_DIR};${Angelscript_ADDON_DIR};")
 include_directories (${GAME_INCLUDE_DIRS})
 
 source_group(Sources FILES ${SOURCE_FILES})
