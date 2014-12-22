@@ -1,22 +1,21 @@
 #pragma once
 
-#include "IState.h"
+#include "State.h"
 #include "Map.h"
 
-class GameState : public IState
+class GameState : public State
 {
 public:
+	GameState(int screenWidth, int screenHeight);
+	~GameState(void);
 
-	GameState( int ScreenWidth, int ScreenHeight );
-	~GameState( void );
-
-	void VInitialize(); 
-	void VUpdate();
-	void VRender( sf::RenderWindow* window );
+	void initialize(); 
+	void update();
+	void render(sf::RenderWindow* renderWindow);
 	
 private:
-	Map* m_Map;
-	int m_MapWidth;
-	int m_MapHeight;
+	Map* m_map;
+	int  m_mapWidth;
+	int  m_mapHeight;
 };
 

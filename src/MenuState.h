@@ -1,20 +1,20 @@
 #pragma once
 
-#include "IState.h"
+#include "State.h"
 
-class MenuState : public IState
+class MenuState : public State
 {
 public:
 
-	void VInitialize();
-	void VUpdate();
-	void VRender( sf::RenderWindow *_window );
+	void initialize();
+	void update();
+	void render(sf::RenderWindow* renderWindow);
 
-	MenuState( int _ScreenWidth, int _ScreenHeight );
-	~MenuState( void );
+	MenuState(int screenWidth, int screenHeight);
+	~MenuState(void );
 
 private:
 
-	sf::RectangleShape m_RecShape[4];
+	sf::RectangleShape m_recShape[4];
 };
 

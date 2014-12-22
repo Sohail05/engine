@@ -1,78 +1,78 @@
 #include "Map.h"
 
-void Map::Initialize() 
+void Map::initialize() 
 {
 	int tileID = 0;
 
-	m_MapData.resize( m_MapWidth * m_MapHeight );
+	m_mapData.resize(m_mapWidth * m_mapHeight);
 
-	for( int y = 0; y < m_MapHeight; y++ ) 
-		for( int x = 0; x < m_MapWidth; x++ ) 
-			m_MapData[ y * m_MapWidth + x ] = 0;
+	for(int y = 0; y < m_mapHeight; y++) 
+		for(int x = 0; x < m_mapWidth; x++) 
+			m_mapData[y * m_mapWidth + x] = 0;
 
-	for( int x = 0; x < m_MapWidth; x++ ) 
+	for(int x = 0; x < m_mapWidth; x++) 
 	{
-		m_MapData[ x ] = 1;
-		m_MapData[ (m_MapHeight-1) * m_MapWidth + x ] = 1;
+		m_mapData[x] = 1;
+		m_mapData[(m_mapHeight-1) * m_mapWidth + x] = 1;
 	}
 
-	for( int y = 0; y < m_MapHeight; y++ ) 
+	for(int y = 0; y < m_mapHeight; y++) 
 	{
-		m_MapData[ y * m_MapWidth  ] = 1;
-		m_MapData[ (y * m_MapWidth) + m_MapWidth-1 ] = 1;
+		m_mapData[ y * m_mapWidth] = 1;
+		m_mapData[(y * m_mapWidth) + m_mapWidth-1] = 1;
 	}
 
-	m_MapData[ ((( m_MapHeight / 2 ) * m_MapWidth ) + m_MapWidth / 2 )     ] = 2;
-	m_MapData[ ((( m_MapHeight / 2 ) * m_MapWidth ) + m_MapWidth / 2 ) - 1 ] = 2;
-	m_MapData[ ((( m_MapHeight / 2 ) * m_MapWidth ) + m_MapWidth / 2 ) - m_MapWidth    ] = 2;
-	m_MapData[ ((( m_MapHeight / 2 ) * m_MapWidth ) + m_MapWidth / 2 ) - m_MapWidth -1 ] = 2;
+	m_mapData[(((m_mapHeight / 2 ) * m_mapWidth) + m_mapWidth / 2)] = 2;
+	m_mapData[(((m_mapHeight / 2 ) * m_mapWidth) + m_mapWidth / 2) - 1] = 2;
+	m_mapData[(((m_mapHeight / 2 ) * m_mapWidth) + m_mapWidth / 2) - m_mapWidth] = 2;
+	m_mapData[(((m_mapHeight / 2 ) * m_mapWidth) + m_mapWidth / 2) - m_mapWidth -1] = 2;
 	
 }
 
-void Map::Update()
+void Map::update()
 {
 	
 }
 
-void Map::Render( sf::RenderWindow* Window )
-{		
-	std::unique_ptr<sf::RectangleShape> Rectangle( new sf::RectangleShape() );
-	Rectangle->setSize( sf::Vector2f( m_TileSize, (float) m_TileSize ) );
+void Map::render(sf::RenderWindow* renderWindow)
+{	
+	std::unique_ptr<sf::RectangleShape> rectangle(new sf::RectangleShape());
+	rectangle->setSize(sf::Vector2f(m_tileSize, (float)m_tileSize));
 
-	for( int y = 0; y < m_MapHeight; y++ ) 
+	for(int y = 0; y < m_mapHeight; y++) 
 	{
-		for( int x = 0; x < m_MapWidth; x++ ) 
+		for(int x = 0; x < m_mapWidth; x++) 
 		{
-			switch( m_MapData[ y * m_MapWidth + x ] )
+			switch(m_mapData[y * m_mapWidth + x])
 			{
 				case 1:
-					Rectangle->setPosition( (float) x * m_TileSize, y * m_TileSize );
-					Rectangle->setFillColor( sf::Color( 0, 0, 100 ));
-					Window->draw( *Rectangle );
+					rectangle->setPosition((float)x * m_tileSize, y * m_tileSize);
+					rectangle->setFillColor(sf::Color(0, 0, 100));
+					renderWindow->draw(*rectangle);
 				break;
 				case 2:
-					Rectangle->setPosition( (float) x * m_TileSize, y * m_TileSize );
-					Rectangle->setFillColor( sf::Color( 150, 150, 0 ) );
-					Window->draw( *Rectangle );
+					rectangle->setPosition((float)x * m_tileSize, y * m_tileSize);
+					rectangle->setFillColor(sf::Color(150, 150, 0));
+					renderWindow->draw(*rectangle);
 				break;
 				case 3:
-					Rectangle->setPosition( (float) x * m_TileSize, y * m_TileSize );
-					Rectangle->setFillColor( sf::Color::Blue );
-					Window->draw( *Rectangle );
+					rectangle->setPosition((float)x * m_tileSize, y * m_tileSize);
+					rectangle->setFillColor(sf::Color::Blue);
+					renderWindow->draw(*rectangle);
 				break;
 				default:
-					Rectangle->setPosition( (float) x * m_TileSize, y * m_TileSize );
-					Rectangle->setFillColor( sf::Color( 0, 100, 0 ) );
-					Window->draw( *Rectangle );
+					rectangle->setPosition((float)x * m_tileSize, y * m_tileSize);
+					rectangle->setFillColor(sf::Color(0, 100, 0));
+					renderWindow->draw(*rectangle);
 				break;
 			}
 		}
 	}
 }
 
-Map::Map( int MapWidth, int MapHeight ) :
-	m_TileSize( MAP_DEFAULT_TILESIZE ),
-	m_MapWidth( MapWidth ), m_MapHeight( MapHeight )
+Map::Map(int mapWidth, int mapHeight) :
+	m_tileSize(MAP_DEFAULT_TILESIZE),
+	m_mapWidth(mapWidth), m_mapHeight(mapHeight)
 {
 	
 }

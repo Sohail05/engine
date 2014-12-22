@@ -6,11 +6,11 @@
 #include "script/Scriptengine.hpp"
 #include "pathfinder/PathFinder.h"
 
-const int   WINDOWWIDTH  = 1024;
-const int   WINDOWHEIGHT = 748;
-const int   WINDOWPOSITIONX = 100;
-const int   WINDOWPOSITIONY = 0;
-const char* WINDOWTITLE = "- Digital Pioneers - GameEngine - Demo v0.001";
+const int   WINDOWWIDTH     =  1024;
+const int   WINDOWHEIGHT    =   748;
+const int   WINDOWPOSITIONX =   100;
+const int   WINDOWPOSITIONY =     0;
+const char* WINDOWTITLE     = "- Digital Pioneers - GameEngine - Demo v0.001";
 
 /**
 * The program entry point
@@ -22,17 +22,17 @@ int main(int,char**) {
 
 	std::unique_ptr<Engine> engine(  new Engine( WINDOWTITLE, WINDOWWIDTH, WINDOWHEIGHT, WINDOWPOSITIONX, WINDOWPOSITIONY ) );
 	
-	int WindowWidth  = engine->GetWindowWidth();
-	int WindowHeight = engine->GetWindowHeight();
+	int windowWidth  = engine->getWindowWidth();
+	int windowHeight = engine->getWindowHeight();
 
-	std::unique_ptr<GameState> gameState( new GameState( WindowWidth, WindowHeight ) );
-	std::unique_ptr<MenuState> menuState( new MenuState( WindowWidth, WindowHeight ) );
+	std::unique_ptr<GameState> gameState( new GameState( windowWidth, windowHeight ) );
+	std::unique_ptr<MenuState> menuState( new MenuState( windowWidth, windowHeight ) );
 
-	engine->SetGameState( std::move( gameState ) );
-	engine->SetMenuState( std::move( menuState ) );
+	engine->setGameState( std::move( gameState ) );
+	engine->setMenuState( std::move( menuState ) );
 
-	sf::RenderWindow window( sf::VideoMode( WindowWidth, WindowHeight ), engine->GetWindowTitle());
-	window.setPosition( sf::Vector2i( engine->GetWindowPositionX(), engine->GetWindowPositionY() ) );
+	sf::RenderWindow window( sf::VideoMode( windowWidth, windowHeight ), engine->getWindowTitle());
+	window.setPosition( sf::Vector2i( engine->getWindowPositionX(), engine->getWindowPositionY() ) );
 
 
 	//int32_t map[5][6] = {
@@ -74,7 +74,7 @@ int main(int,char**) {
 	as.runScript("test.as", "void main()");
     */
 
-	engine->Initialize();
+	engine->initialize();
 
 	while( window.isOpen() ) 
 	{	
@@ -90,13 +90,11 @@ int main(int,char**) {
 
 		window.clear( sf::Color::Black );
 
-		engine->Update();
-		engine->Render( &window );
+		engine->update();
+		engine->render( &window );
 
 		window.display();
 	}
 	
-	engine->Release();
-
     return EXIT_SUCCESS;
 }

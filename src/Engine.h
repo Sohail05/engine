@@ -1,43 +1,96 @@
 #pragma once
 
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
+
 #include <iostream>
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-#include "StateManager.h"
 #include "MenuState.h"
 #include "GameState.h"
 
-/** The Engine class is used to store information about the window, main loop, input etc */
+////////////////////////////////////////////////////////////
+/// \brief The Engine class is used to store information about the window, main loop, input etc
+///
+////////////////////////////////////////////////////////////
 
 class Engine
 {
 public:
+	Engine(std::string windowTitle, int windowWidth, int windowHeight, int windowPositionX, int windowPositionY);
+	~Engine(void);
 
-	Engine( std::string Title, int WindowWidth, int WindowHeight, int WindowPositionX, int WindowPositionY );
-	~Engine( void );
+	////////////////////////////////////////////////////////////
+	/// \brief Initialize the Engine
+	///
+	/// This function will initialize the Engine, and all of its subsystems.
+	///
+	////////////////////////////////////////////////////////////
+	void initialize();	                         
 
-	void Initialize();	                     ///< Main Initialize Loop
-	void Update();	                         ///< Main Update Loop 
-	void Render( sf::RenderWindow* Window ); ///< Main Render Loop @param Handle to a Render Window 
-	void Release();	                         ///< Release any memory obtained 
+	////////////////////////////////////////////////////////////
+	/// \brief Update the Engine
+	///
+	/// This function will Update the Engine, and all of its subsystems.
+	///
+	////////////////////////////////////////////////////////////
+	void update();	                             
+	
+	////////////////////////////////////////////////////////////
+	/// \brief Render the Engine
+	///
+	/// This function will Render the Engine, and all of its subsystems.
+	///
+	/// \param sf::RenderWindow
+	///
+	////////////////////////////////////////////////////////////
+	void render(sf::RenderWindow* renderWindow); 
+	
+	////////////////////////////////////////////////////////////
+	/// \brief This function is used to set the Engines GameState
+	///
+	/// This function takes a GameState and asigns it to the Engine
+	///
+	/// \param GameState
+	///
+	////////////////////////////////////////////////////////////
+	inline void setGameState(std::unique_ptr<GameState> gameState) { m_gameState = std::move(gameState); } 	
 
-	inline void SetGameState( std::unique_ptr<GameState> GameState ) { m_GameState = std::move( GameState ); } 	///< Sets the GameState variable @param unique_pointer to a GameState
-	inline void SetMenuState( std::unique_ptr<MenuState> MenuState ) { m_MenuState = std::move( MenuState ); } 	///< Sets the MenuState variable @param unique_pointer to a MenuState
+	////////////////////////////////////////////////////////////
+	/// \brief This function is used to set the Engines MenuState
+	///
+	/// This function takes a MenuState and asigns it to the Engine
+	///
+	/// \param MenuState
+	///
+	////////////////////////////////////////////////////////////
+	inline void setMenuState(std::unique_ptr<MenuState> menuState) { m_menuState = std::move(menuState); } 	
 
-	inline std::string GetWindowTitle()     { return m_Title;           } ///< @returns the Title for the Window 
-	inline int		   GetWindowWidth()     { return m_WindowWidth;     } ///< @returns the Width of the Window in pixels 
-	inline int         GetWindowHeight()    { return m_WindowHeight;    } ///< @returns the Height of the Window in pixels 
-	inline int         GetWindowPositionX() { return m_WindowPositionX; } ///< @returns the Position of the Window along the xAxis 
-	inline int         GetWindowPositionY() { return m_WindowPositionY; } ///< @returns the Position of the Window along the yAxis 
+	inline std::string getWindowTitle()     { return m_windowTitle;     } ///< @returns the Title for the Window 
+	inline int		   getWindowWidth()     { return m_windowWidth;     } ///< @returns the Width of the Window in pixels 
+	inline int         getWindowHeight()    { return m_windowHeight;    } ///< @returns the Height of the Window in pixels 
+	inline int         getWindowPositionX() { return m_windowPositionX; } ///< @returns the Position of the Window along the xAxis 
+	inline int         getWindowPositionY() { return m_windowPositionY; } ///< @returns the Position of the Window along the yAxis 
 
 private:
 
-	std::string m_Title;	
-	int m_WindowWidth, m_WindowHeight;
-	int m_WindowPositionX, m_WindowPositionY;
+	std::string m_windowTitle;	
+	int m_windowWidth, m_windowHeight;
+	int m_windowPositionX, m_windowPositionY;
 
-	std::unique_ptr<GameState> m_GameState;
-	std::unique_ptr<MenuState> m_MenuState;	
+	std::unique_ptr<GameState> m_gameState;
+	std::unique_ptr<MenuState> m_menuState;	
 };
 
+////////////////////////////////////////////////////////////
+/// \class Engine
+/// \ingroup Main
+///
+/// This class will hold information needed by the Game, and ways to edit / update / display this information
+/// This information will consist of such things as the size and position of the window.
+/// This class will also control the Main Rendering / Update Loop and user input.
+/// more to come..
+///
+////////////////////////////////////////////////////////////

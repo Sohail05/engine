@@ -1,27 +1,27 @@
 #include "MenuState.h"
 
-void MenuState::VInitialize() 
+void MenuState::initialize() 
 {
 	for( int i = 0; i < 4; i++ ) {
-		m_RecShape[i].setSize( sf::Vector2f( 400, 100 ) );
-		m_RecShape[i].setPosition( 100, (float) i * 120 );
-		m_RecShape[i].setFillColor( sf::Color::Blue );
+		m_recShape[i].setSize(sf::Vector2f( 400, 100 ));
+		m_recShape[i].setPosition(100, (float) i * 120);
+		m_recShape[i].setFillColor(sf::Color::Blue);
 	}
 }
 
-void MenuState::VUpdate()
+void MenuState::update()
 {
 
 }
 
-void MenuState::VRender( sf::RenderWindow *_window ) 
+void MenuState::render(sf::RenderWindow* renderWindow) 
 {
-	for( int i = 0; i < 4; i++ ) 
-		_window->draw( 	m_RecShape[i] );
+	for(int i = 0; i < 4; i++) 
+		renderWindow->draw(m_recShape[i]);
 }
 
-MenuState::MenuState( int _ScreenWidth, int _ScreenHeight ) :
-	IState( _ScreenWidth, _ScreenHeight )
+MenuState::MenuState( int screenWidth, int screenHeight ) :
+	State( screenWidth, screenHeight )
 {
 }
 
