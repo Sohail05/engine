@@ -12,13 +12,18 @@ const int   WINDOWPOSITIONX =   100;
 const int   WINDOWPOSITIONY =     0;
 const char* WINDOWTITLE     = "- Digital Pioneers - GameEngine - Demo v0.001";
 
+#define UNUSED_PARAM(param) (void*)param
+
 /**
 * The program entry point
 * @param argc the argument count
 * @param argv the array containing the arguments
 * @return the returncode of the program
 */
-int main(int,char**) {
+int main(int argc, char** argv) {
+
+	UNUSED_PARAM(argc);
+	UNUSED_PARAM(argv);
 
 	std::unique_ptr<Engine> engine(  new Engine( WINDOWTITLE, WINDOWWIDTH, WINDOWHEIGHT, WINDOWPOSITIONX, WINDOWPOSITIONY ) );
 	
