@@ -1,4 +1,4 @@
-#include "MenuState.h"
+#include "MenuState.hpp"
 
 void MenuState::initialize() 
 {

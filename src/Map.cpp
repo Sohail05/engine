@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "Map.hpp"
 
 void Map::initialize() 
 {

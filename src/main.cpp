@@ -1,8 +1,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Engine.h"
-#include "GameState.h"
+#include "Engine.hpp"
+#include "GameState.hpp"
 #include "script/Scriptengine.hpp"
 #include "pathfinder/PathFinder.h"
 

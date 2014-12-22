@@ -1,4 +1,4 @@
-#include "State.h"
+#include "State.hpp"
 
 State::State(int screenWidth, int screenHeight) :
 	m_screenWidth(screenWidth), 

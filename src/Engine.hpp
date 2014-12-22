@@ -8,8 +8,8 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-#include "MenuState.h"
-#include "GameState.h"
+#include "MenuState.hpp"
+#include "GameState.hpp"
 
 ////////////////////////////////////////////////////////////
 /// \brief The Engine class is used to store information about the window, main loop, input etc

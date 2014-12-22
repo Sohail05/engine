@@ -5,7 +5,7 @@ class State
 {
 public:
 	State(int screenWidth, int screenHeight);
-	virtual ~State( void );
+	virtual ~State(void);
 
 	virtual void initialize() = 0;
 	virtual void update()     = 0;

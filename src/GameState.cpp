@@ -1,4 +1,4 @@
-#include "GameState.h"
+#include "GameState.hpp"
 
 const int DEFAULT_MAP_WIDTH  = 16;
 const int DEFAULT_MAP_HEIGHT = 11;
