@@ -1,10 +1,12 @@
-#include "SpriteSheet.h"
+#include "Assets.h"
 
 #include <stdint.h>
 #include <fstream>
 
 using namespace std;
 using namespace sf;
+
+map<std::string, sf::Texture> Assets::s_textures;
 
 
 struct databuffer
@@ -14,17 +16,7 @@ struct databuffer
 };
 
 
-SpriteSheet* SpriteSheet::getInstance()
-{
-	static SpriteSheet* spriteSheet = nullptr;
-	if (!spriteSheet)
-	{
-		spriteSheet = new SpriteSheet;
-	}
-	return spriteSheet;
-}
-
-void SpriteSheet::put(const std::string& spritesheet, const string& spritesheetdata)
+void Assets::putSpriteSheet(const std::string& spritesheet, const string& spritesheetdata)
 {
 	string data;
 	databuffer buffer;
@@ -50,18 +42,13 @@ void SpriteSheet::put(const std::string& spritesheet, const string& spritesheetd
 		Texture texture;
 		texture.loadFromImage(ssheet, rect);
 
-		m_textures[buffer.name] = texture;
+		s_textures[buffer.name] = texture;
 	}
 
 	infile.close();
 }
 
-Texture& SpriteSheet::get(const string& name)
+Texture& Assets::getTexture(const string& name)
 {
-	return m_textures[name];
-}
-
-void SpriteSheet::end()
-{
-	delete this;
+	return s_textures[name];
 }
