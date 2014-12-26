@@ -12,8 +12,8 @@ public:
 	Map(int mapWidth, int mapHeight);
 	~Map(void);
 
-	void initialize();                       ///< Intialize the Map Data
-	void update();   	                     ///< Update the Map Data
+	void initialize();                          ///< Intialize the Map Data
+	void update();   	                        ///< Update the Map Data
 	void render(sf::RenderWindow* renderWindow); ///< Render the Map Data @param Handle to the Render Window
 	
 	inline void setTileSize(int tileSize) { m_tileSize = tileSize; } ///< Set the Size to Draw Tiles @param Size in Pixels

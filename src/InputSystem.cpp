@@ -1,31 +1,31 @@
 #include "InputSystem.hpp"
 #include "Unit.hpp"
 
+#include <SFML/Main.hpp>
+
 const float TEMP_MOVE_SPEED = 1.f;
 
-Command* InputSystem::handleInput() {
-	
-	Unit *unit = new Unit(); // TODO: Pointer or list of current units.
-
-	if( isPressed(m_buttonUp) )
+Command* InputSystem::handleInput(Unit *unit) 
+{	
+	if(isPressed(sf::Keyboard::Key::S))
 	{
 		ActorPosition actorPosition = unit->getPosition();
 		float newY = actorPosition.y + TEMP_MOVE_SPEED;
 		return new MoveUnitCommand(unit, actorPosition.x,newY);
 	}
-	if( isPressed(m_buttonDown) )
+	if(isPressed(sf::Keyboard::Key::W))
 	{
 		ActorPosition actorPosition = unit->getPosition();
 		float newY  = actorPosition.y - TEMP_MOVE_SPEED;
 		return new MoveUnitCommand(unit, actorPosition.x,newY);
 	}
-	if( isPressed(m_buttonLeft) )
+	if(isPressed(sf::Keyboard::Key::A))
 	{
 		ActorPosition actorPosition = unit->getPosition();
 		float newX = actorPosition.x - TEMP_MOVE_SPEED;
 		return new MoveUnitCommand(unit, newX, actorPosition.y);	
 	}
-	if( isPressed(m_buttonRight) )
+	if(isPressed(sf::Keyboard::Key::D))
 	{
 		ActorPosition actorPosition = unit->getPosition();
 		float newX = actorPosition.x + TEMP_MOVE_SPEED;
@@ -34,7 +34,10 @@ Command* InputSystem::handleInput() {
 }
 
 // TODO
-bool InputSystem::isPressed(Command* command) 
+bool InputSystem::isPressed(sf::Keyboard::Key key) 
 {
-	return false;
+	if( sf::Keyboard::isKeyPressed(key) )
+		return true;
+	else
+		return false;
 }

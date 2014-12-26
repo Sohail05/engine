@@ -25,7 +25,7 @@ public:
 	/// \return Command
 	///
 	////////////////////////////////////////////////////////////
-	Command* handleInput();
+	Command* handleInput(Unit *unit);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Checks if a command has occured
@@ -35,7 +35,7 @@ public:
 	/// \return True if a command is waiting to be processed
 	///
 	////////////////////////////////////////////////////////////
-	bool isPressed(Command* command);
+	bool isPressed(sf::Keyboard::Key key);
 
 private:
 

@@ -26,8 +26,11 @@ typedef unsigned long ActorId;
 class Actor
 {
 public:
+
 	Actor();
 	virtual ~Actor(void) = 0;
+
+	inline void setPosition(float positionX, float positionY) { m_position.x = positionX; m_position.y = positionY; }
 
 protected:
 
