@@ -1,8 +1,6 @@
 #include "InputSystem.hpp"
 #include "Unit.hpp"
 
-#include <SFML/Main.hpp>
-
 const float TEMP_MOVE_SPEED = 1.f;
 
 Command* InputSystem::handleInput(Unit *unit) 
@@ -13,23 +11,27 @@ Command* InputSystem::handleInput(Unit *unit)
 		float newY = actorPosition.y + TEMP_MOVE_SPEED;
 		return new MoveUnitCommand(unit, actorPosition.x,newY);
 	}
-	if(isPressed(sf::Keyboard::Key::W))
+	else if(isPressed(sf::Keyboard::Key::W))
 	{
 		ActorPosition actorPosition = unit->getPosition();
 		float newY  = actorPosition.y - TEMP_MOVE_SPEED;
 		return new MoveUnitCommand(unit, actorPosition.x,newY);
 	}
-	if(isPressed(sf::Keyboard::Key::A))
+	else if(isPressed(sf::Keyboard::Key::A))
 	{
 		ActorPosition actorPosition = unit->getPosition();
 		float newX = actorPosition.x - TEMP_MOVE_SPEED;
 		return new MoveUnitCommand(unit, newX, actorPosition.y);	
 	}
-	if(isPressed(sf::Keyboard::Key::D))
+	else if(isPressed(sf::Keyboard::Key::D))
 	{
 		ActorPosition actorPosition = unit->getPosition();
 		float newX = actorPosition.x + TEMP_MOVE_SPEED;
 		return new MoveUnitCommand(unit, newX, actorPosition.y);	
+	}
+	else
+	{
+		return nullptr;
 	}
 }
 

@@ -4,7 +4,7 @@
 #include "Engine.hpp"
 #include "GameState.hpp"
 #include "script/Scriptengine.hpp"
-#include "pathfinder/PathFinder.h"
+#include "pathfinder/PathFinder.hpp"
 
 const int   WINDOWWIDTH     =  1024;
 const int   WINDOWHEIGHT    =   748;

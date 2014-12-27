@@ -1,4 +1,4 @@
-#include "PathFinder.h"
+#include "PathFinder.hpp"
 
 #include <algorithm>
 
@@ -21,7 +21,7 @@ searchdata::searchdata(vector<shared_ptr<Node>>* path, bool excludeUnnecessaryNo
 		m_nodePath = new vector<Vector2u>;
 		m_vectorPath = new vector<Vector2u>;
 
-		for (int32_t i = 0; i < path->size() - 1; i++) 
+		for (uint32_t i = 0; i < path->size() - 1; i++) 
 		{
 			auto node1 = path->at(i);
 			auto node2 = path->at(i + 1);
@@ -32,7 +32,7 @@ searchdata::searchdata(vector<shared_ptr<Node>>* path, bool excludeUnnecessaryNo
 
 		if (excludeUnnecessaryNodes) 
 		{
-			for (int32_t i = 0; i < m_vectorPath->size() - 1; i++)
+			for (uint32_t i = 0; i < m_vectorPath->size() - 1; i++)
 			{
 				auto v1 = m_vectorPath->at(i);
 				auto v2 = m_vectorPath->at(i + 1);

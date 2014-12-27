@@ -18,11 +18,23 @@ public:
     */
     ScriptEngine();
     /**
-    *   RAI the scriptengin
+    *   RAI the scriptengine
     */
     ~ScriptEngine();
 
+	//////////////////////////////////////////////////////////////////////////
+	// @brief loads a script
+	// 
+	// @param script the path to the script file
+	//////////////////////////////////////////////////////////////////////////
 	void loadScript(const std::string& script);
+
+	//////////////////////////////////////////////////////////////////////////
+	// @brief runs a script
+	//
+	// @param script the script
+	// @param funcDecl the function
+	//////////////////////////////////////////////////////////////////////////
     void runScript(const std::string& script, const std::string& funcDecl);
 private:
     static const std::string script_dir;

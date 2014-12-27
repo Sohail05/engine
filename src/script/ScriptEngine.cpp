@@ -35,7 +35,8 @@ ScriptEngine::ScriptEngine() : m_engine(nullptr)
 	m_context = m_engine->CreateContext();
 }
 
-void ScriptEngine::loadScript(const std::string& script) {
+void ScriptEngine::loadScript(const std::string& script)
+{
 	int r = m_builder.StartNewModule(m_engine, script.c_str());
 	assert(r >= 0);
 
@@ -46,7 +47,8 @@ void ScriptEngine::loadScript(const std::string& script) {
 	assert(r >= 0);
 }
 
-void ScriptEngine::runScript(const std::string& script, const std::string& funcDecl) {
+void ScriptEngine::runScript(const std::string& script, const std::string& funcDecl)
+{
 	asIScriptModule *mod = m_engine->GetModule(script.c_str());
 	asIScriptFunction *func = mod->GetFunctionByDecl(funcDecl.c_str());
 	assert(func != 0);
